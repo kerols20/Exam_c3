@@ -1,0 +1,30 @@
+1- first step in routs make a class for name
+class approutsname{}
+2- interface class App_Routs_page{
+static Route route(RouteSettings settings){
+  switch(settings.name){
+    case App_Routs_names.loginScreen:
+      return MaterialPageRoute(builder: (context)=>const LoginScreen());
+      default:
+        return MaterialPageRoute(builder: (context)=>const LoginScreen());
+}
+}
+3- initialRoute: App_Routs_names.loginScreen, open in screen login
+4- onGenerateRoute: App_Routs_page.route, takes routs from App_Routs_page.dart
+
+5-    appBar: AppBar(
+           title: Row(
+             children: [
+               Icon(Icons.arrow_back_ios_new, color: Colors.black),
+               SizedBox(width: 8),
+               Text(
+                 "Login",
+                 style: TextStyle(color: Colors.black),
+               ),
+             ],
+           ),
+           centerTitle: false,
+           backgroundColor: Colors.white,
+           elevation: 0,
+         ),
+good way for AppBar
