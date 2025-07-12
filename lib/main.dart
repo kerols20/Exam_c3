@@ -3,9 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/Routs/App_Routs_names.dart';
 import 'core/Routs/App_Routs_page.dart';
+import 'di/di.dart';
 
 void main() {
-  runApp(const MyApp());
+  configureDependencies();
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {

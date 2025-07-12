@@ -10,7 +10,7 @@ interface class App_Routs_page {
         return MaterialPageRoute(builder: (context) => const LoginScreen());
 
       case App_Routs_names.signUpScreen:
-        return MaterialPageRoute(builder: (context) => const signUp());
+        return MaterialPageRoute(builder: (context) => const SignUpScreen());
 
       default:
         return MaterialPageRoute(builder: (context) => const LoginScreen());
