@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:project_one_c3_team/widget/custom_Button.dart';
+import 'package:project_one_c3_team/core/Routs/App_Routs_names.dart';
+import 'package:project_one_c3_team/presentation/widget/custom_Button.dart';
 import 'package:project_one_c3_team/api/Request/Request.dart';
 import 'package:project_one_c3_team/di/di.dart';
 import 'package:dio/dio.dart';
-import '../viweModel/viweModel.dart';
+import '../../../viweModel/viweModel.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -24,12 +25,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final phoneController = TextEditingController();
   final usernameController = TextEditingController();
 
-  late final viewModel _viewModel;
+  late final ViewModel _viewModel;
 
   @override
   void initState() {
     super.initState();
-    _viewModel = getIt<viewModel>();
+    _viewModel = getIt<ViewModel>();
   }
 
   @override

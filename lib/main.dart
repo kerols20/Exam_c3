@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'core/Routs/App_Routs_names.dart';
 import 'core/Routs/App_Routs_page.dart';
 import 'di/di.dart';
@@ -19,8 +20,13 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
     builder: (_ , child) {
         return MaterialApp(
-        initialRoute: App_Routs_names.signUpScreen,
+          debugShowCheckedModeBanner: false,
+        initialRoute: App_Routs_names.signInScreen,
         onGenerateRoute: App_Routs_page.route,
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
+          textTheme: GoogleFonts.interTextTheme(),
+        ),
       );
     }
     );
