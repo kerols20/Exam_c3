@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:project_one_c3_team/api/Request/sign_in_request.dart';
 import 'package:project_one_c3_team/core/Routs/App_Routs_names.dart';
 import 'package:project_one_c3_team/di/di.dart';
@@ -7,17 +8,46 @@ import 'package:project_one_c3_team/presentation/widget/custom_Button.dart';
 import 'package:dio/dio.dart';
 import 'package:project_one_c3_team/viweModel/viweModel.dart';
 
+import '../../../api/response/sign_in_response.dart';
+
 class SignInView extends StatefulWidget {
-  const SignInView({super.key});
+   SignInView({super.key});
 
   @override
   State<SignInView> createState() => _SignInViewState();
+  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+
 }
 
 class _SignInViewState extends State<SignInView> {
+  void initState() {
+    super.initState();
+    _checkLoginToken();
+  }
+  Future<bool> _checkLoginToken() async {
+    final token = await widget.secureStorage.read(key: "token");
+    if (token != null) {
+      if (!mounted) return true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            App_Routs_names.homeScreen,
+                (route) => false,
+          );
+        }
+      });
+      return true;
+    }
+    return false;
+  }
+
+
   final _formKey = GlobalKey<FormState>();
   bool isValid = false;
   final ViewModel _viewModel =getIt.get<ViewModel>();
+  bool rememberMe = false;
+
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -82,13 +112,23 @@ class _SignInViewState extends State<SignInView> {
                     val == null || val.isEmpty ? 'Required' : null,
                 onChanged: (_) => _updateFormValidity(),
               ),
-            Text('Forget password?',
-            style: TextStyle(
-              fontSize: 12,
-              decoration: TextDecoration.underline,
-            ),),
+            Row(
+              children: [
+                Text("Remember me"),
+                Checkbox(value: rememberMe, onChanged: (value) {
+                  setState(() {
+                    rememberMe = value ?? false;
+                  });
+                },),
+                Spacer(),
+                Text('Forget password?',
+                  style: TextStyle(
+                    fontSize: 12,
+                    decoration: TextDecoration.underline,
+                  ),),
+              ],
+            ),
               const SizedBox(height: 20),
-              
               SizedBox(
               width: double.infinity,
               height: 50,
@@ -167,13 +207,18 @@ class _SignInViewState extends State<SignInView> {
     email: emailController.text.trim(),
     password: passwordController.text.trim(),
     );
-
     try {
-      await _viewModel.signIn(request);
+      Sign_in_response response  =  await _viewModel.signIn(request);
+      if(rememberMe)
+        {
+          await widget.secureStorage.write(key: "token", value: response.token);
+          await widget.secureStorage.write(key: "user", value: "${response.user?.firstName}");
+        }
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Sign up successful")),
+        SnackBar(content: Text("Sign in successful,")),
       );
+      Navigator.pushNamed(context, App_Routs_names.homeScreen);
     } catch (error) {
       if (error is DioException) {
         print("❌ Dio Error: ${error.response?.data}");

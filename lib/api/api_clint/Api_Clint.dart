@@ -4,6 +4,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
 import '../Request/Request.dart';
+import '../response/sign_in_response.dart';
 part 'Api_Clint.g.dart';
 @RestApi(baseUrl: "https://exam.elevateegy.com/api/")
 abstract class ApiClient {
@@ -13,5 +14,5 @@ abstract class ApiClient {
   Future<void> signUp(@Body() SignUpRequest request);
 
  @POST("v1/auth/signIn")
-  Future<void> signIn(@Body() SignInRequest request); 
+  Future<Sign_in_response> signIn(@Body() SignInRequest request);
 }

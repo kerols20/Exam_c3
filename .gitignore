@@ -43,3 +43,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+# Ignore generated code by build_runner & injectable
+**/*.g.dart
+lib/di/di.config.dart

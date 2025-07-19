@@ -40,13 +40,13 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<void> signIn(SignInRequest request) async {
+  Future<Sign_in_response> signIn(SignInRequest request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
-    final _options = _setStreamType<void>(
+    final _options = _setStreamType<Sign_in_response>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -56,7 +56,15 @@ class _ApiClient implements ApiClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    await _dio.fetch<void>(_options);
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late Sign_in_response _value;
+    try {
+      _value = Sign_in_response.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
