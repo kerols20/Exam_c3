@@ -14,14 +14,20 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
 import '../api/api_clint/Api_Clint.dart' as _i875;
+import '../api/Data_Source_Imp/ForgotPasswordRemoteDataSourceImpl.dart'
+    as _i626;
 import '../api/Data_Source_Imp/SignInRemoteDataSourceImpl.dart' as _i254;
 import '../api/Data_Source_Imp/SignUp_Data_Source_Imp.dart' as _i932;
+import '../Data/Data_Source/ForgotPasswordRemoteDataSource.dart' as _i266;
 import '../Data/Data_Source/SignInRemoteDataSource.dart' as _i482;
 import '../Data/Data_Source/SignUp_Data_Source.dart' as _i531;
+import '../Data/repositries_Imp/ForgotPasswordRepoImpl.dart' as _i830;
 import '../Data/repositries_Imp/SignInRepoImpl.dart' as _i856;
 import '../Data/repositries_Imp/SignUp_Rpo_Imp.dart' as _i455;
+import '../domin/repositries/forgot_password_reposetories.dart' as _i353;
 import '../domin/repositries/sign_in_reposetories.dart' as _i632;
 import '../domin/repositries/SignUp_reposetries.dart' as _i664;
+import '../domin/UsaCase/ForgotPasswordUseCase.dart' as _i766;
 import '../domin/UsaCase/SignInUseCase.dart' as _i197;
 import '../domin/UsaCase/SignUp_UsaCase.dart' as _i583;
 import '../viweModel/viweModel.dart' as _i648;
@@ -45,8 +51,19 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i531.SignUpDataSource>(
       () => _i932.SidnUp_Data_Source_Imp(gh<_i875.ApiClient>()),
     );
+    gh.factory<_i266.ForgotPasswordRemoteDataSource>(
+      () => _i626.ForgotPasswordRemoteDataSourceImpl(gh<_i875.ApiClient>()),
+    );
     gh.factory<_i632.SignInRepositories>(
       () => _i856.SignInRepoImpl(gh<_i482.SignInRemoteDataSource>()),
+    );
+    gh.factory<_i353.ForgotPasswordReposetories>(
+      () => _i830.ForgotPasswordRepoImpl(
+        gh<_i266.ForgotPasswordRemoteDataSource>(),
+      ),
+    );
+    gh.factory<_i766.ForgotPasswordUseCase>(
+      () => _i766.ForgotPasswordUseCase(gh<_i353.ForgotPasswordReposetories>()),
     );
     gh.factory<_i664.SignUp_Rpo>(
       () => _i455.SignUp_Rpo_Imp(gh<_i531.SignUpDataSource>()),
@@ -61,6 +78,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i648.ViewModel(
         gh<_i583.SignUp_UsaCase>(),
         gh<_i197.SignInUseCase>(),
+        gh<_i766.ForgotPasswordUseCase>(),
       ),
     );
     return this;

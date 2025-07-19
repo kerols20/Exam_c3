@@ -11,12 +11,11 @@ import 'package:project_one_c3_team/viweModel/viweModel.dart';
 import '../../../api/response/sign_in_response.dart';
 
 class SignInView extends StatefulWidget {
-   SignInView({super.key});
+  SignInView({super.key});
 
   @override
   State<SignInView> createState() => _SignInViewState();
   final FlutterSecureStorage secureStorage = FlutterSecureStorage();
-
 }
 
 class _SignInViewState extends State<SignInView> {
@@ -24,6 +23,7 @@ class _SignInViewState extends State<SignInView> {
     super.initState();
     _checkLoginToken();
   }
+
   Future<bool> _checkLoginToken() async {
     final token = await widget.secureStorage.read(key: "token");
     if (token != null) {
@@ -33,7 +33,7 @@ class _SignInViewState extends State<SignInView> {
           Navigator.pushNamedAndRemoveUntil(
             context,
             App_Routs_names.homeScreen,
-                (route) => false,
+            (route) => false,
           );
         }
       });
@@ -42,12 +42,10 @@ class _SignInViewState extends State<SignInView> {
     return false;
   }
 
-
   final _formKey = GlobalKey<FormState>();
   bool isValid = false;
-  final ViewModel _viewModel =getIt.get<ViewModel>();
+  final ViewModel _viewModel = getIt.get<ViewModel>();
   bool rememberMe = false;
-
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -55,7 +53,6 @@ class _SignInViewState extends State<SignInView> {
   bool hasLowercase = false;
   bool hasNumber = false;
   bool hasSpecialChar = false;
-
 
   GlobalKey<FormState> formkey = GlobalKey();
 
@@ -112,80 +109,98 @@ class _SignInViewState extends State<SignInView> {
                     val == null || val.isEmpty ? 'Required' : null,
                 onChanged: (_) => _updateFormValidity(),
               ),
-            Row(
-              children: [
-                Text("Remember me"),
-                Checkbox(value: rememberMe, onChanged: (value) {
-                  setState(() {
-                    rememberMe = value ?? false;
-                  });
-                },),
-                Spacer(),
-                Text('Forget password?',
-                  style: TextStyle(
-                    fontSize: 12,
-                    decoration: TextDecoration.underline,
-                  ),),
-              ],
-            ),
+              Row(
+                children: [
+                  Checkbox(
+                    value: rememberMe,
+                    onChanged: (value) {
+                      setState(() {
+                        rememberMe = value ?? false;
+                      });
+                    },
+                  ),
+
+                  Text("Remember me"),
+                  Spacer(),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        App_Routs_names.forgetPasswordScreen,
+                      );
+                    },
+                    child: Text(
+                      'Forget password?',
+                      style: TextStyle(
+                        fontSize: 12,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  )                ],
+              ),
               const SizedBox(height: 20),
               SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: ElevatedButton(
-                onPressed: isValid ? _onSignUpPressed : null,
-                style: ElevatedButton.styleFrom(
-                backgroundColor: isValid ? Colors.blue : Colors.grey,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25),
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: isValid ? _onSignUpPressed : null,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: isValid ? Colors.blue : Colors.grey,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                  ),
+                  child: const Text(
+                    "Login",
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
                 ),
-                ),
-                child: const Text(
-                "Login",
-                style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
-              ),
               ),
               const SizedBox(height: 20),
               Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                RichText(
-                text: TextSpan(
-                  children: [
-                  const TextSpan(
-                    text: "Don't have an account?",
-                    style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        const TextSpan(
+                          text: "Don't have an account?",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        WidgetSpan(
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                context,
+                                App_Routs_names.signUpScreen,
+                              );
+                            },
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.only(
+                                left: 6,
+                              ), // Remove padding
+                              minimumSize: Size(0, 0), // Remove minimum size
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            ),
+                            child: const Text(
+                              "Sign Up",
+                              style: TextStyle(
+                                color: Color(0xFF02369C),
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline,
+                                decorationColor: Color(0xFF02369C),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  WidgetSpan(
-                    child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, App_Routs_names.signUpScreen);
-                    },
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.only(left: 6), // Remove padding
-                      minimumSize: Size(0, 0), // Remove minimum size
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
-                    child: const Text(
-                      "Sign Up",
-                      style: TextStyle(
-                      color: Color(0xFF02369C),
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.underline,
-                      decorationColor: Color(0xFF02369C),
-                      ),
-                    ),
-                    ),
-                  ),
-                  ],
-                ),
-                ),
-              ],
+                ],
               ),
             ],
           ),
@@ -193,7 +208,6 @@ class _SignInViewState extends State<SignInView> {
       ),
     );
   }
-
 
   void _updateFormValidity() {
     setState(() {
@@ -204,20 +218,22 @@ class _SignInViewState extends State<SignInView> {
   void _onSignUpPressed() async {
     if (!_formKey.currentState!.validate()) return;
     final request = SignInRequest(
-    email: emailController.text.trim(),
-    password: passwordController.text.trim(),
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
     );
     try {
-      Sign_in_response response  =  await _viewModel.signIn(request);
-      if(rememberMe)
-        {
-          await widget.secureStorage.write(key: "token", value: response.token);
-          await widget.secureStorage.write(key: "user", value: "${response.user?.firstName}");
-        }
+      Sign_in_response response = await _viewModel.signIn(request);
+      if (rememberMe) {
+        await widget.secureStorage.write(key: "token", value: response.token);
+        await widget.secureStorage.write(
+          key: "user",
+          value: "${response.user?.firstName}",
+        );
+      }
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Sign in successful,")),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Sign in successful,")));
       Navigator.pushNamed(context, App_Routs_names.homeScreen);
     } catch (error) {
       if (error is DioException) {
