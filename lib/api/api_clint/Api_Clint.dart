@@ -1,5 +1,5 @@
+import 'package:project_one_c3_team/api/Request/EmailVerificationRequest.dart';
 import 'package:project_one_c3_team/api/Request/sign_in_request.dart';
-//import 'package:project_one_c3_team/api/response/sign_in_response.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
@@ -20,4 +20,8 @@ abstract class ApiClient {
 
 @POST("v1/auth/forgotPassword")
   Future<void> forgotPassword(@Body() ForgotPasswordRequest request);
+
+
+@POST("v1/auth/verifyResetCode")
+  Future<void> verifyResetCode(@Body() VerifyResetCodeRequest request);
 }

@@ -1,31 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:project_one_c3_team/di/di.dart';
 import 'package:project_one_c3_team/presentation/widget/custom_Button.dart';
-import 'package:project_one_c3_team/viweModel/viweModel.dart';
 
-import '../../../../api/Request/ForgotPasswordRequest.dart';
-import '../../../../core/Routs/App_Routs_names.dart';
-
-class ForgetPassword extends StatefulWidget {
-  ForgetPassword({super.key});
+class ResetPasswordScreen extends StatefulWidget {
+  ResetPasswordScreen({super.key});
 
   @override
-  State<ForgetPassword> createState() => _ForgetPasswordState();
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
   final FlutterSecureStorage secureStorage = FlutterSecureStorage();
 }
 
-class _ForgetPasswordState extends State<ForgetPassword> {
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   void initState() {
     super.initState();
   }
 
   final _formKey = GlobalKey<FormState>();
   bool isValid = false;
-  final ViewModel _viewModel = getIt.get<ViewModel>();
 
-  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   GlobalKey<FormState> formkey = GlobalKey();
 
@@ -59,13 +54,13 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           children: [
             SizedBox(height: 20),
             Text(
-              "Forget Password",
+              "Reset password",
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20),
 
             Text(
-              "Please enter your email associated to your account ",
+              "Password must not be empty and must contain 6 characters with upper case letter and one number at least ",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 18,
@@ -81,16 +76,29 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     CustomFormField(
-                      controller: emailController,
-                      labelText: "Email",
-                      hintText: "Enter your email",
-                      validator: (val) => val == null || val.isEmpty
-                          ? 'Required'
-                          : !RegExp(
-                              r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-                            ).hasMatch(val)
-                          ? 'Invalid email'
-                          : null,
+                      controller: passwordController,
+                      labelText: "New password",
+                      hintText: "Enter your password",
+                      isPassword: true,
+                      suffixIcon: Icons.visibility,
+                      validator: (val) =>
+                          val == null || val.isEmpty ? 'Required' : null,
+                      onChanged: (_) => _updateFormValidity(),
+                    ),
+                    SizedBox(height: 20),
+                    CustomFormField(
+                      controller: confirmPasswordController,
+                      labelText: "Confirm password",
+                      hintText: "Enter your password",
+                      isPassword: true,
+                      suffixIcon: Icons.visibility,
+                      validator: (val) {
+                        if (val == null || val.isEmpty) return 'Required';
+                        if (val != passwordController.text)
+                          return 'Passwords do not match';
+                        return null;
+                      },
+
                       onChanged: (_) => _updateFormValidity(),
                     ),
 
@@ -99,14 +107,13 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       width: double.infinity,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: isValid ? _onForgetPasswordPressed : null,
-
                         style: ElevatedButton.styleFrom(
                           backgroundColor: isValid ? Colors.blue : Colors.grey,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(25),
                           ),
                         ),
+                        onPressed: () {},
                         child: const Text(
                           "Continue",
                           style: TextStyle(color: Colors.white, fontSize: 18),
@@ -128,26 +135,5 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     setState(() {
       isValid = _formKey.currentState?.validate() ?? false;
     });
-  }
-
-  void _onForgetPasswordPressed() async {
-    if (!_formKey.currentState!.validate()) return;
-    final request = ForgotPasswordRequest(email: emailController.text.trim());
-    try {
-      await _viewModel.forgotPasswordSendCode(request);
-
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Code sent to your email.")),
-      );
-      Navigator.pushNamed(
-        context,
-        App_Routs_names.emailVerificationScreen,
-      );
-    } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Failed to send code.")),
-      );
-    }
   }
 }

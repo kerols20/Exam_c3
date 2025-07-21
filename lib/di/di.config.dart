@@ -18,18 +18,23 @@ import '../api/Data_Source_Imp/ForgotPasswordRemoteDataSourceImpl.dart'
     as _i626;
 import '../api/Data_Source_Imp/SignInRemoteDataSourceImpl.dart' as _i254;
 import '../api/Data_Source_Imp/SignUp_Data_Source_Imp.dart' as _i932;
+import '../api/Data_Source_Imp/VerifyResetCodeDataSourceImpl.dart' as _i306;
 import '../Data/Data_Source/ForgotPasswordRemoteDataSource.dart' as _i266;
 import '../Data/Data_Source/SignInRemoteDataSource.dart' as _i482;
 import '../Data/Data_Source/SignUp_Data_Source.dart' as _i531;
+import '../Data/Data_Source/verifyResetCodeDataSource.dart' as _i223;
 import '../Data/repositries_Imp/ForgotPasswordRepoImpl.dart' as _i830;
 import '../Data/repositries_Imp/SignInRepoImpl.dart' as _i856;
 import '../Data/repositries_Imp/SignUp_Rpo_Imp.dart' as _i455;
+import '../Data/repositries_Imp/VerifyResetCodeRepoImpl.dart' as _i360;
 import '../domin/repositries/forgot_password_reposetories.dart' as _i353;
 import '../domin/repositries/sign_in_reposetories.dart' as _i632;
 import '../domin/repositries/SignUp_reposetries.dart' as _i664;
+import '../domin/repositries/verify_reset_code.dart' as _i523;
 import '../domin/UsaCase/ForgotPasswordUseCase.dart' as _i766;
 import '../domin/UsaCase/SignInUseCase.dart' as _i197;
 import '../domin/UsaCase/SignUp_UsaCase.dart' as _i583;
+import '../domin/UsaCase/VerifyResetCodeUseCase.dart' as _i775;
 import '../viweModel/viweModel.dart' as _i648;
 import 'app_module.dart' as _i460;
 
@@ -45,8 +50,20 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i875.ApiClient>(
       () => appModule.provideApiClient(gh<_i361.Dio>()),
     );
+    gh.factory<_i223.VerifyResetCodeRemoteDataSource>(
+      () => _i306.VerifyResetCodeRemoteDataSourceImpl(gh<_i875.ApiClient>()),
+    );
+    gh.factory<_i523.VerifyResetCodeReposetories>(
+      () => _i360.VerifyResetCodeRepoImp(
+        gh<_i223.VerifyResetCodeRemoteDataSource>(),
+      ),
+    );
     gh.factory<_i482.SignInRemoteDataSource>(
       () => _i254.Signinremotedatasourceimpl(gh<_i875.ApiClient>()),
+    );
+    gh.factory<_i775.VerifyResetCodeUseCase>(
+      () =>
+          _i775.VerifyResetCodeUseCase(gh<_i523.VerifyResetCodeReposetories>()),
     );
     gh.factory<_i531.SignUpDataSource>(
       () => _i932.SidnUp_Data_Source_Imp(gh<_i875.ApiClient>()),

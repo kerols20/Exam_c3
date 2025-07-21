@@ -3,5 +3,7 @@ class App_Routs_names{
   static const String signInScreen = "/signin";
   static const String homeScreen = "/home";
   static const String forgetPasswordScreen = "/forgetPassword";
+  static const String emailVerificationScreen = "/emailVerification";
+  static const String resetPasswordScreen = "/resetPassword";
 
 }
