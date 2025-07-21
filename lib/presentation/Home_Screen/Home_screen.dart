@@ -1,31 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:project_one_c3_team/core/Routs/App_Routs_names.dart'; // تأكد أن هذا يحتوي على اسم شاشة تسجيل الدخول
+class Home_Screen extends StatefulWidget {
+  @override
+  State<Home_Screen> createState() => _Home_ScreenState();
+}
 
-class Home_Screen extends StatelessWidget {
-  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
-
+class _Home_ScreenState extends State<Home_Screen> {
   @override
   Widget build(BuildContext context) {
+    int _currentIndex = 0;
     return Scaffold(
       appBar: AppBar(
         title: Text("Home"),
         centerTitle: true,
       ),
+      bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: Colors.blue,
+          unselectedItemColor: Colors.grey,
+          currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Explore",
+          ),
+          BottomNavigationBarItem(
+            icon:SizedBox(
+              height: 40,
+              width: 40,
+              child: Image.asset("assets/icon-container.png"),
+            ),
+            label: "Settings",
+          )
+        ]
+      ),
       body: Column(
         children: [
-          ElevatedButton(
-            onPressed: () async {
-              await secureStorage.delete(key: "token");
-              await secureStorage.delete(key: "user");
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                App_Routs_names.signInScreen,
-                    (route) => false,
-              );
-            },
-            child: Text("Log out"),
-          ),
+
         ],
       ),
     );

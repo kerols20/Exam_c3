@@ -7,7 +7,6 @@ import 'package:project_one_c3_team/di/di.dart';
 import 'package:project_one_c3_team/presentation/widget/custom_Button.dart';
 import 'package:dio/dio.dart';
 import 'package:project_one_c3_team/viweModel/viweModel.dart';
-
 import '../../../api/response/sign_in_response.dart';
 
 class SignInView extends StatefulWidget {
@@ -16,32 +15,34 @@ class SignInView extends StatefulWidget {
   @override
   State<SignInView> createState() => _SignInViewState();
   final FlutterSecureStorage secureStorage = FlutterSecureStorage();
-
 }
 
 class _SignInViewState extends State<SignInView> {
+  bool _checkToken = true;
+  @override
   void initState() {
     super.initState();
-    _checkLoginToken();
+    _checkingToken();
   }
-  Future<bool> _checkLoginToken() async {
+  Future<void> _checkingToken() async {
     final token = await widget.secureStorage.read(key: "token");
-    if (token != null) {
-      if (!mounted) return true;
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) {
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            App_Routs_names.homeScreen,
-                (route) => false,
-          );
-        }
-      });
-      return true;
-    }
-    return false;
-  }
 
+    if (token != null) {
+      if (!mounted) return;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          App_Routs_names.homeScreen,
+              (route) => false,
+        );
+      });
+    } else {
+      if (!mounted) return;
+      setState(() {
+        _checkToken = false;
+      });
+    }
+  }
 
   final _formKey = GlobalKey<FormState>();
   bool isValid = false;
@@ -61,16 +62,22 @@ class _SignInViewState extends State<SignInView> {
 
   @override
   Widget build(BuildContext context) {
+    if (_checkToken) {
+      return Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Row(
           children: [
-            IconButton(
-              icon: Icon(Icons.arrow_back_ios_new, color: Colors.black),
-              onPressed: () => Navigator.pop(context),
-            ),
+            /// not used there is no page before
+            // IconButton(
+            //   icon: Icon(Icons.arrow_back_ios_new, color: Colors.black),
+            //   onPressed: () => Navigator.pop(context),
+            // ),
             const Text(
               "Login",
               style: TextStyle(
@@ -193,8 +200,6 @@ class _SignInViewState extends State<SignInView> {
       ),
     );
   }
-
-
   void _updateFormValidity() {
     setState(() {
       isValid = _formKey.currentState?.validate() ?? false;
