@@ -230,7 +230,7 @@ class _SignInViewState extends State<SignInView> {
         print("📦 Request: ${error.requestOptions.data}");
         print("📤 Headers: ${error.requestOptions.headers}");
       } else {
-        print("⚠️ Unknown Error: $error");
+        // print("⚠️ Unknown Error: $error");
       }
     }
   }
