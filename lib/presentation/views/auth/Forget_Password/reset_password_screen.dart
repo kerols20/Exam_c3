@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:project_one_c3_team/presentation/widget/custom_Button.dart';
+import 'package:dio/dio.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   ResetPasswordScreen({super.key});
@@ -112,7 +113,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             borderRadius: BorderRadius.circular(25),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          _resetPassword();
+                        },
                         child: const Text(
                           "Continue",
                           style: TextStyle(color: Colors.white, fontSize: 18),
@@ -130,6 +133,38 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     );
   }
 
+
+  Future<void> _resetPassword() async {
+    if (!isValid) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Please fill in all fields correctly."))
+      );
+      return;
+    }
+    try {
+      final response = await Dio().put(
+        'https://exam.elevateegy.com/api/v1/auth/resetPassword',
+        data: {
+          "email": await widget.secureStorage.read(key: 'email'),
+          "resetCode": await widget.secureStorage.read(key: 'resetCode'),
+          "newPassword": passwordController.text,
+        },
+      );
+      if (response.data['message'] == "success") {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Password reset successfully!"))
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(response.data['message'] ?? "Error"))
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $e'))
+      );
+    }
+  }
   void _updateFormValidity() {
     setState(() {
       isValid = _formKey.currentState?.validate() ?? false;
