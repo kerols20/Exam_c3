@@ -53,14 +53,14 @@ class EmailVerificationState extends State<EmailVerification> {
             const SizedBox(height: 40),
             PinCodeTextField(
               appContext: context,
-              length: 4,
+              length: 6,
               controller: otpController,
               animationType: AnimationType.fade,
               pinTheme: PinTheme(
                 shape: PinCodeFieldShape.box,
                 borderRadius: BorderRadius.circular(12),
-                fieldHeight: 60,
-                fieldWidth: 60,
+                fieldHeight: 40,
+                fieldWidth: 40,
                 activeFillColor: Colors.blue.shade50,
                 selectedFillColor: Colors.blue.shade50,
                 inactiveFillColor: Colors.blue.shade50,
@@ -79,7 +79,7 @@ class EmailVerificationState extends State<EmailVerification> {
                 }
               },
               onCompleted: (value) {
-                _validateOtp(value); // Call your OTP validation function here
+                _validateOtp(value);
               },
 
             ),
@@ -106,10 +106,10 @@ class EmailVerificationState extends State<EmailVerification> {
     try {
       final response = await Dio().post(
         'https://exam.elevateegy.com/api/v1/auth/verifyResetCode',
-        data: {'otp': value},
+        data: {'resetCode': value},
       );
 
-      if (response.statusCode == 200 && response.data['valid'] == true) {
+      if (response.statusCode == 200 && response.data['status'] == "Success") {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) =>  ResetPasswordScreen()),

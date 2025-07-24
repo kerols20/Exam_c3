@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_one_c3_team/presentation/views/auth/Forget_Password/email_verification.dart';
+import 'package:project_one_c3_team/presentation/views/auth/Forget_Password/VerifyResetCode.dart';
 import 'package:project_one_c3_team/presentation/views/auth/sign_in_view.dart';
 import '../../presentation/Home_Screen/Home_screen.dart';
 import '../../presentation/views/auth/Forget_Password/Forget_Password.dart';

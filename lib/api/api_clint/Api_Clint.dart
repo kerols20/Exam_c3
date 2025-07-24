@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 
 import '../Request/ForgotPasswordRequest.dart';
 import '../Request/Request.dart';
+import '../Request/ResetPasswordRequest.dart';
 import '../response/sign_in_response.dart';
 part 'Api_Clint.g.dart';
 @RestApi(baseUrl: "https://exam.elevateegy.com/api/")
@@ -24,4 +25,8 @@ abstract class ApiClient {
 
 @POST("v1/auth/verifyResetCode")
   Future<void> verifyResetCode(@Body() VerifyResetCodeRequest request);
+
+
+@PUT("v1/auth/resetPassword")
+  Future<void> resetPassword(@Body() ResetPasswordRequest request);
 }
