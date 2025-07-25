@@ -9,7 +9,7 @@ part 'Api_Clint.g.dart';
 abstract class ApiClient {
   factory ApiClient(Dio dio, {String? baseUrl}) = _ApiClient;
   @POST("v1/auth/signUp")
-  Future<void> signUp(@Body() SignUpRequest request);
+  Future<dynamic> signUp(@Body() SignUpRequest request);
 
  @POST("v1/auth/signIn")
   Future<Sign_in_response> signIn(@Body() SignInRequest request);

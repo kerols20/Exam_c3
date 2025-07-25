@@ -1,8 +1,9 @@
+import 'package:injectable/injectable.dart';
 import 'package:project_one_c3_team/domin/model/Get_subjects_model.dart';
 
 import '../../Data/Data_Source/Get_subjects_Data_Source.dart';
 import '../api_clint/Api_Clint.dart';
-
+@Injectable(as:Get_subjects_Data_Source)
 class Get_subjects_Data_Source_Imp implements Get_subjects_Data_Source{
   ApiClient _client;
   Get_subjects_Data_Source_Imp(this._client);

@@ -14,14 +14,19 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
 import '../api/api_clint/Api_Clint.dart' as _i875;
+import '../api/Data_Source_Imp/Get_subjects_Data_Source_Imp.dart' as _i946;
 import '../api/Data_Source_Imp/SignInRemoteDataSourceImpl.dart' as _i254;
 import '../api/Data_Source_Imp/SignUp_Data_Source_Imp.dart' as _i932;
+import '../Data/Data_Source/Get_subjects_Data_Source.dart' as _i546;
 import '../Data/Data_Source/SignInRemoteDataSource.dart' as _i482;
 import '../Data/Data_Source/SignUp_Data_Source.dart' as _i531;
+import '../Data/repositries_Imp/Get_subjects_Rpo_Imp.dart' as _i614;
 import '../Data/repositries_Imp/SignInRepoImpl.dart' as _i856;
 import '../Data/repositries_Imp/SignUp_Rpo_Imp.dart' as _i455;
+import '../domin/repositries/Get_subjects_Rpositeries.dart' as _i680;
 import '../domin/repositries/sign_in_reposetories.dart' as _i632;
 import '../domin/repositries/SignUp_reposetries.dart' as _i664;
+import '../domin/UsaCase/Get_subjects_Use_Case.dart' as _i62;
 import '../domin/UsaCase/SignInUseCase.dart' as _i197;
 import '../domin/UsaCase/SignUp_UsaCase.dart' as _i583;
 import '../viweModel/viweModel.dart' as _i648;
@@ -48,19 +53,29 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i632.SignInRepositories>(
       () => _i856.SignInRepoImpl(gh<_i482.SignInRemoteDataSource>()),
     );
+    gh.factory<_i546.Get_subjects_Data_Source>(
+      () => _i946.Get_subjects_Data_Source_Imp(gh<_i875.ApiClient>()),
+    );
     gh.factory<_i664.SignUp_Rpo>(
       () => _i455.SignUp_Rpo_Imp(gh<_i531.SignUpDataSource>()),
     );
     gh.factory<_i197.SignInUseCase>(
       () => _i197.SignInUseCase(gh<_i632.SignInRepositories>()),
     );
+    gh.factory<_i680.Get_subjects_Rpo>(
+      () => _i614.Get_subjects_Rpo_Imp(gh<_i546.Get_subjects_Data_Source>()),
+    );
     gh.factory<_i583.SignUp_UsaCase>(
       () => _i583.SignUp_UsaCase(gh<_i664.SignUp_Rpo>()),
     );
-    gh.factory<_i648.ViewModel>(
-      () => _i648.ViewModel(
+    gh.factory<_i62.Get_subject_Use_Case>(
+      () => _i62.Get_subject_Use_Case(gh<_i680.Get_subjects_Rpo>()),
+    );
+    gh.factory<_i648.Viwe_Model>(
+      () => _i648.Viwe_Model(
         gh<_i583.SignUp_UsaCase>(),
         gh<_i197.SignInUseCase>(),
+        gh<_i62.Get_subject_Use_Case>(),
       ),
     );
     return this;

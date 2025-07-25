@@ -1,3 +1,5 @@
+import '../model/Get_subjects_model.dart';
+
 abstract class Get_subjects_Rpo{
-  Future<void> Get_subjects_Data(String token);
+  Future<List<subject>> Get_subjects_Data(String token);
 }

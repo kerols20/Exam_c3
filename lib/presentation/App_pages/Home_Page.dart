@@ -1,7 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+import '../../core/Routs/App_Routs_names.dart';
 
 class Home_Page extends StatefulWidget {
   Home_Page({super.key});
@@ -12,21 +12,16 @@ class Home_Page extends StatefulWidget {
 }
 class _Home_PageState extends State<Home_Page> {
   late Future<String?> tokenFuture;
-  @override
-  void initState() {
-    super.initState();
-    _printToken();
-  }
-  void _printToken() async {
-    String? token = await widget.secureStorage.read(key: "token");
-    print("Token: $token");
-  }
+
   Widget build(BuildContext context) {
     return  Scaffold(
       backgroundColor: Colors.red,
       body: Column(
         children: [
-          //Text("token ${widget.secureStorage.read(key: "token")}")
+          ElevatedButton(onPressed: () {
+            widget.secureStorage.delete(key: "token");
+            Navigator.pushNamedAndRemoveUntil(context, App_Routs_names.signInScreen, (route) => false);
+          }, child: Text("log out"))
         ],
       ),
     );
