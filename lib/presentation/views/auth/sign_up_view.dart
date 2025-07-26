@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:project_one_c3_team/presentation/widget/custom_Button.dart';
 import 'package:project_one_c3_team/api/Request/Request.dart';
 import 'package:project_one_c3_team/di/di.dart';
@@ -11,6 +14,7 @@ class SignUpScreen extends StatefulWidget {
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
+  final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
@@ -24,6 +28,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final phoneController = TextEditingController();
   final usernameController = TextEditingController();
   late Viwe_Model _viewModel;
+  
 
   @override
   void initState() {
@@ -190,7 +195,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
   void _onSignUpPressed() async {
     if (!_formKey.currentState!.validate()) return;
-
     final request = SignUpRequest(
       username: usernameController.text.trim(),
       firstName: firstNameController.text.trim(),
@@ -201,5 +205,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
       phone: phoneController.text.trim(),
     );
      await _viewModel.doAction(signUPData(request));
+    await widget.secureStorage.write(
+  key: 'signUpProfile',
+  value: jsonEncode(request.toJson()),
+);
+     
   }
+  
 }
