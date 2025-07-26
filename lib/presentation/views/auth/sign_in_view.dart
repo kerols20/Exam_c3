@@ -6,11 +6,8 @@ import 'package:project_one_c3_team/api/Request/sign_in_request.dart';
 import 'package:project_one_c3_team/core/Routs/App_Routs_names.dart';
 import 'package:project_one_c3_team/di/di.dart';
 import 'package:project_one_c3_team/presentation/widget/custom_Button.dart';
-import 'package:dio/dio.dart';
 import 'package:project_one_c3_team/viweModel/viweModel.dart';
 import '../../../api/response/sign_in_response.dart';
-import '../../App_pages/Home_Page.dart';
-
 class SignInView extends StatefulWidget {
    SignInView({super.key});
 
@@ -140,11 +137,17 @@ class _SignInViewState extends State<SignInView> {
                             },
                           ),
                           Spacer(),
-                          Text(
-                            'Forget password?',
-                            style: TextStyle(
-                              fontSize: 12,
-                              decoration: TextDecoration.underline,
+                          TextButton(
+                            onPressed: () {
+                               Navigator.pushNamed(
+                                  context, App_Routs_names.forgetPasswordScreen);
+                            },
+                            child: Text(
+                              'Forget password?',
+                              style: TextStyle(
+                                fontSize: 12,
+                                decoration: TextDecoration.underline,
+                              ),
                             ),
                           ),
                         ],
@@ -263,4 +266,5 @@ class _SignInViewState extends State<SignInView> {
 }
 
 
-
+///miner@gmail.com
+///3e22r3SSS#@@!!54
