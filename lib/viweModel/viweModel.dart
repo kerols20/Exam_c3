@@ -115,7 +115,6 @@ class Viwe_Model extends Cubit<Viwe_State> {
 }
 
 sealed class doIntantAction {}
-
 class signUPData extends doIntantAction {
   final SignUpRequest request;
   signUPData(this.request);
