@@ -1,12 +1,12 @@
-import 'package:project_one_c3_team/api/Request/sign_in_request.dart';
+import 'package:project_one_c3_team/api/auth/request/sign_in_request.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
-import '../Request/Forgot_Password_Request.dart';
-import '../Request/Request.dart';
-import '../Request/Reset Password.dart';
-import '../Request/Verify_Reset_password.dart';
-import '../response/Get_subjects_Rsonse.dart';
-import '../response/sign_in_response.dart';
+import '../auth/request/Forgot_Password_Request.dart';
+import '../auth/request/Request.dart';
+import '../auth/request/Reset Password.dart';
+import '../auth/request/Verify_Reset_password.dart';
+import '../home/response/Get_subjects_Rsonse.dart';
+import '../auth/response/sign_in_response.dart';
 part 'Api_Clint.g.dart';
 @RestApi(baseUrl: "https://exam.elevateegy.com/api/")
 abstract class ApiClient {

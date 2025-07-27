@@ -16,10 +16,6 @@ interface class App_Routs_page {
       case App_Routs_names.signInScreen:
         return MaterialPageRoute(builder: (context) => SignInView());
       case App_Routs_names.homeScreen:
-<<<<<<< HEAD
-        return MaterialPageRoute(builder: (context) => onBoardingScreen());
-
-=======
         return MaterialPageRoute(builder: (context) =>  onBoardingScreen());
         case App_Routs_names.resetPasswordScreen:
           return MaterialPageRoute(builder: (context) => ResetPasswordScreen());
@@ -27,7 +23,6 @@ interface class App_Routs_page {
             return MaterialPageRoute(builder: (context) => ForgetPassword());
             case App_Routs_names.verifyCodeScreen:
               return MaterialPageRoute(builder: (context) => EmailVerification());
->>>>>>> 56df6b56fda376ebc6a4a7b2a87b0b115c4b2d11
       default:
         return MaterialPageRoute(builder: (context) => SignInView());
     }

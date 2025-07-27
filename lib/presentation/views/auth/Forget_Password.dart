@@ -4,7 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:project_one_c3_team/presentation/widget/custom_Button.dart';
 import 'package:project_one_c3_team/viweModel/viweModel.dart';
 import 'package:project_one_c3_team/core/Routs/App_Routs_names.dart';
-import 'package:project_one_c3_team/api/Request/Forgot_Password_Request.dart';
+import 'package:project_one_c3_team/api/auth/request/Forgot_Password_Request.dart';
 import 'package:project_one_c3_team/di/di.dart';
 
 import '../../widget/Validators.dart';
@@ -40,6 +40,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     if (!_formKey.currentState!.validate()) return;
 
     final request = ForgotPasswordRequest(email: emailController.text.trim());
+    await secureStorage.write(key: 'email', value: request.email);
 
     try {
       await _viweModel.doAction(ForgotPasswordAction(request));

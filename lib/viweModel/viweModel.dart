@@ -1,18 +1,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import '../api/Request/Forgot_Password_Request.dart';
-import '../api/Request/Request.dart';
-import '../api/Request/Reset Password.dart';
-import '../api/Request/Verify_Reset_password.dart';
-import '../api/Request/sign_in_request.dart';
-import '../api/response/sign_in_response.dart';
-import '../domin/UsaCase/ForgotPasswordUseCase.dart';
-import '../domin/UsaCase/Get_subjects_Use_Case.dart';
-import '../domin/UsaCase/ResetPasswordUseCase.dart';
-import '../domin/UsaCase/SignInUseCase.dart';
-import '../domin/UsaCase/SignUp_UsaCase.dart';
-import '../domin/UsaCase/VerifyResetCodeUseCase.dart';
-import '../domin/model/Get_subjects_model.dart';
+import '../api/auth/request/Forgot_Password_Request.dart';
+import '../api/auth/request/Request.dart';
+import '../api/auth/request/Reset Password.dart';
+import '../api/auth/request/Verify_Reset_password.dart';
+import '../api/auth/request/sign_in_request.dart';
+import '../api/auth/response/sign_in_response.dart';
+import '../domin/auth/use_case/ForgotPasswordUseCase.dart';
+import '../domin/home/UsaCase/Get_subjects_Use_Case.dart';
+import '../domin/auth/use_case/ResetPasswordUseCase.dart';
+import '../domin/auth/use_case/SignInUseCase.dart';
+import '../domin/auth/use_case/SignUp_UsaCase.dart';
+import '../domin/auth/use_case/VerifyResetCodeUseCase.dart';
+import '../domin/home/model/Get_subjects_model.dart';
 @injectable
 class Viwe_Model extends Cubit<Viwe_State> {
   final SignUp_UsaCase _case;
