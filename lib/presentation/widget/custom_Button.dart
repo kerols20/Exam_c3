@@ -16,6 +16,7 @@ class CustomFormField extends StatefulWidget {
   final bool enabled;
   final EdgeInsetsGeometry? padding;
   final void Function(String)? onChanged;
+  final FloatingLabelBehavior floatingLabelBehavior;
 
   const CustomFormField({
     Key? key,
@@ -34,6 +35,7 @@ class CustomFormField extends StatefulWidget {
     this.enabled = true,
     this.padding,
     this.onChanged,
+    this.floatingLabelBehavior = FloatingLabelBehavior.auto,
   }) : super(key: key);
 
   @override
@@ -103,6 +105,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
             borderRadius: BorderRadius.circular(15),
             borderSide: BorderSide(color: Colors.red, width: 2),
           ),
+          floatingLabelBehavior: widget.floatingLabelBehavior,
         ),
       ),
     );

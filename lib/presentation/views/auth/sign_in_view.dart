@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:project_one_c3_team/api/Request/sign_in_request.dart';
+import 'package:project_one_c3_team/api/auth/request/sign_in_request.dart';
 import 'package:project_one_c3_team/core/Routs/App_Routs_names.dart';
 import 'package:project_one_c3_team/di/di.dart';
 import 'package:project_one_c3_team/presentation/widget/custom_Button.dart';
 import 'package:project_one_c3_team/viweModel/viweModel.dart';
-import '../../../api/response/sign_in_response.dart';
+import '../../../api/auth/response/sign_in_response.dart';
 class SignInView extends StatefulWidget {
    SignInView({super.key});
 

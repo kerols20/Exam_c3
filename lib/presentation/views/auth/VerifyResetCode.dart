@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_one_c3_team/presentation/views/auth/reset_password_screen.dart';
 import 'package:project_one_c3_team/viweModel/viweModel.dart';
-import '../../../api/Request/Verify_Reset_password.dart';
+import '../../../api/auth/request/Verify_Reset_password.dart';
 import '../../../di/di.dart';
 
 class EmailVerification extends StatefulWidget {
