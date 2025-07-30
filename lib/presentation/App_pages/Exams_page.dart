@@ -58,7 +58,7 @@ class _ExamsPageState extends State<ExamsPage> {
             );}
         },
         builder: (BuildContext context, Home_viwe_model_status state) {
-          if (state.exams != null && state.exams!.isNotEmpty) {
+          if (state.exams == null && state.exams.isEmpty) {
             return ListView.builder(
                 itemCount: state.exams.length,
                 itemBuilder: (context, index) {

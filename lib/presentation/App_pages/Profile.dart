@@ -69,127 +69,132 @@ class _Profile_pageState extends State<Profile_page> {
         }
       },
         builder: (context, state) {
-          return Scaffold(
-            backgroundColor: Colors.white,
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              title: Row(
-                children: [
-                  const Text("Profile", style: TextStyle(color: Colors.black)),
-                  const Spacer(),
-                  IconButton(
-                    icon: Icon(Icons.edit, color: Colors.black),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ],
-              ),
-              centerTitle: false,
-            ),
-            body: Form(
-              key: _formKey,
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
-                child: Column(
+          if(state.subjects == null && state.subjects.isEmpty){
+            return Scaffold(
+              backgroundColor: Colors.white,
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                title: Row(
                   children: [
-                    CustomFormField(
-                      enabled: false,
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      controller: usernameController,
-                      labelText: "User Name",
-                      hintText: "Enter your username",
-                      // validator: Validators.name,
-                     // onChanged: (_) => _updateFormValidity(),
+                    const Text("Profile", style: TextStyle(color: Colors.black)),
+                    const Spacer(),
+                    IconButton(
+                      icon: Icon(Icons.edit, color: Colors.black),
+                      onPressed: () => Navigator.pop(context),
                     ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomFormField(
-                            enabled: false,
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            controller: firstNameController,
-                            labelText: "First Name",
-                            hintText: "Enter your first name",
-                           // validator: Validators.name,
-                           // onChanged: (_) => _updateFormValidity(),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: CustomFormField(
-                            enabled:false,
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            controller: lastNameController,
-                            labelText: "Last Name",
-                            hintText: "Enter your last name",
-                           // validator: Validators.name,
-                            //onChanged: (_) => _updateFormValidity(),
-                          ),
-                        ),
-                      ],
-                    ),
-                    CustomFormField(
-                      enabled:false,
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      controller: emailController,
-                      labelText: "Email",
-                      hintText: "Enter your email",
-                      keyboardType: TextInputType.emailAddress,
-                      //validator: Validators.email,
-                     // onChanged: (_) => _updateFormValidity(),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomFormField(
-                            enabled:false,
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            controller: passwordController,
-                            labelText: "Password",
-                            hintText: "Enter your password",
-                            isPassword: true,
-                            suffixIcon: Icons.visibility,
-                           // validator: Validators.passwordMatch,
-                          //  onChanged: (_) => _updateFormValidity(),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                      ],
-                    ),
-                    CustomFormField(
-                      enabled:true,
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      controller: phoneController,
-                      labelText: "Phone",
-                      hintText: "Enter your phone",
-                      keyboardType: TextInputType.phone,
-                     // validator: Validators.phone,
-                     // onChanged: (_) => _updateFormValidity(),
-                    ),
-                    const SizedBox(height: 20),
-                    if (state.isLoading)
-                        Center(child: CircularProgressIndicator()),
-                    // SizedBox(
-                    //   width: double.infinity,
-                    //   height: 50,
-                    //   child: ElevatedButton(
-                    //    // onPressed: isValid ? _onSignUpPressed : null,
-                    //     style: ElevatedButton.styleFrom(
-                    //       backgroundColor: isValid ? Colors.blue : Colors.grey,
-                    //       shape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.circular(25),
-                    //       ),
-                    //     ),
-                    //     child: const Text(
-                    //       "Sign Up",
-                    //       style: TextStyle(color: Colors.white, fontSize: 18),
-                    //     ),
-                    //   ),
-                    // )
                   ],
                 ),
+                centerTitle: false,
               ),
-            ),
-          );
+              body: Form(
+                key: _formKey,
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      CustomFormField(
+                        enabled: false,
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        controller: usernameController,
+                        labelText: "User Name",
+                        hintText: "Enter your username",
+                        // validator: Validators.name,
+                        // onChanged: (_) => _updateFormValidity(),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomFormField(
+                              enabled: false,
+                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                              controller: firstNameController,
+                              labelText: "First Name",
+                              hintText: "Enter your first name",
+                              // validator: Validators.name,
+                              // onChanged: (_) => _updateFormValidity(),
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: CustomFormField(
+                              enabled:false,
+                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                              controller: lastNameController,
+                              labelText: "Last Name",
+                              hintText: "Enter your last name",
+                              // validator: Validators.name,
+                              //onChanged: (_) => _updateFormValidity(),
+                            ),
+                          ),
+                        ],
+                      ),
+                      CustomFormField(
+                        enabled:false,
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        controller: emailController,
+                        labelText: "Email",
+                        hintText: "Enter your email",
+                        keyboardType: TextInputType.emailAddress,
+                        //validator: Validators.email,
+                        // onChanged: (_) => _updateFormValidity(),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomFormField(
+                              enabled:false,
+                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                              controller: passwordController,
+                              labelText: "Password",
+                              hintText: "Enter your password",
+                              isPassword: true,
+                              suffixIcon: Icons.visibility,
+                              // validator: Validators.passwordMatch,
+                              //  onChanged: (_) => _updateFormValidity(),
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                        ],
+                      ),
+                      CustomFormField(
+                        enabled:true,
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        controller: phoneController,
+                        labelText: "Phone",
+                        hintText: "Enter your phone",
+                        keyboardType: TextInputType.phone,
+                        // validator: Validators.phone,
+                        // onChanged: (_) => _updateFormValidity(),
+                      ),
+                      const SizedBox(height: 20),
+                      if (state.isLoading)
+                        Center(child: CircularProgressIndicator()),
+                      // SizedBox(
+                      //   width: double.infinity,
+                      //   height: 50,
+                      //   child: ElevatedButton(
+                      //    // onPressed: isValid ? _onSignUpPressed : null,
+                      //     style: ElevatedButton.styleFrom(
+                      //       backgroundColor: isValid ? Colors.blue : Colors.grey,
+                      //       shape: RoundedRectangleBorder(
+                      //         borderRadius: BorderRadius.circular(25),
+                      //       ),
+                      //     ),
+                      //     child: const Text(
+                      //       "Sign Up",
+                      //       style: TextStyle(color: Colors.white, fontSize: 18),
+                      //     ),
+                      //   ),
+                      // )
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }
+          else{
+            return Center(child: Text("No Data to Show"));
+          }
         },
        );
   }

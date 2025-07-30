@@ -45,48 +45,53 @@ class _Home_PageState extends State<Home_Page> {
           }
         },
       builder: ( context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text("servy"),
-          ),
+        if(state.subjects == null && state.subjects.isEmpty){
+          return Scaffold(
+              appBar: AppBar(
+                title: Text("servy"),
+              ),
               body: Column(
                 children: [
-                  state.isLoading == true ?  Center(child: CircularProgressIndicator()) :
-                      state.subjects.isEmpty ? Text("no data") :
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: state.subjects.length,
-                          itemBuilder: (context, index) {
-                          final subject = state.subjects[index];
-                          return Container(
-                            margin: EdgeInsets.all(10),
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            child:
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => ExamsPage(subject:
-                                    subject.id,),));
-                                  }, child: Text(subject.name, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                                   ),
-                                SizedBox(height: 8),
-                                Image.network(subject.icon),
-                                SizedBox(height: 8),
-                              ],
-                            ),
-                          );
-                        },
-                        ),
-                      )
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: state.subjects.length,
+                      itemBuilder: (context, index) {
+                        final subject = state.subjects[index];
+                        return Container(
+                          margin: EdgeInsets.all(10),
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                          ),
+                          child:
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ExamsPage(subject:
+                                  subject.id,),));
+                                }, child: Text(subject.name, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                              ),
+                              SizedBox(height: 8),
+                              Image.network(subject.icon),
+                              SizedBox(height: 8),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ],
               )
-        );
-      },);
+          );
+          }else if(state.isLoading == true){
+          return Center(child: CircularProgressIndicator());
+        }else{
+          return Center(child: Text("No Data to Show"));
+        }
+      },
+    );
   }
 }
 
