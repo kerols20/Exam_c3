@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part '../../home/response/sign_in_response.g.dart';
-
+part 'sign_in_response.g.dart';
 @JsonSerializable()
 class Sign_in_response {
   @JsonKey(name: "message")

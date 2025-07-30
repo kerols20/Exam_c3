@@ -5,6 +5,8 @@ import '../auth/request/Forgot_Password_Request.dart';
 import '../auth/request/Request.dart';
 import '../auth/request/Reset Password.dart';
 import '../auth/request/Verify_Reset_password.dart';
+import '../home/response/Get_Exams_by_Id.dart';
+import '../home/response/Get_qustion_by_Exam.dart';
 import '../home/response/Get_subjects_Rsonse.dart';
 import '../auth/response/sign_in_response.dart';
 part 'Api_Clint.g.dart';
@@ -16,10 +18,18 @@ abstract class ApiClient {
 
  @POST("v1/auth/signIn")
   Future<Sign_in_response> signIn(@Body() SignInRequest request);
+
   @GET("v1/subjects")
   Future<Get_subjects_Rsonse> Get_subjects(@Header("token") String token );
-  @POST("v1/auth/forgotPassword")
+  @GET("v1/exams")
+  Future<Get_Exams_by_Id_subject> Get_Exams(
+      @Header("token") String token, @Query("subject") String subject,);
 
+  @GET("v1/questions")
+  Future<Get_qustion_by_Exam_id> Get_qustion_by_Exam(
+      @Header("token") String token, @Query("exam") String exam,);
+
+  @POST("v1/auth/forgotPassword")
   Future<void> forgotPassword(@Body() ForgotPasswordRequest request);
 
   @POST("v1/auth/verifyResetCode")

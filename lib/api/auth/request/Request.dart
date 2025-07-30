@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-
-part '../../home/Request/Request.g.dart';
+part 'Request.g.dart';
 @JsonSerializable()
 class SignUpRequest {
   @JsonKey(name: "username")

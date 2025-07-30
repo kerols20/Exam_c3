@@ -32,7 +32,6 @@ class _SignInViewState extends State<SignInView> {
     print("📦 Token: $token");
 
     if (!mounted) return;
-
     if (token != null && token.isNotEmpty) {
       print("✅ Token exists. Navigating...");
       WidgetsBinding.instance.addPostFrameCallback((_) { // what is this?

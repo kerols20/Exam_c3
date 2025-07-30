@@ -1,7 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-
-part '../../home/Request/Forgot_Password_Request.g.dart';
-
+part "Forgot_Password_Request.g.dart";
 @JsonSerializable()
 class ForgotPasswordRequest {
   @JsonKey(name: "email")
