@@ -45,7 +45,7 @@ class _Home_PageState extends State<Home_Page> {
           }
         },
       builder: ( context, state) {
-        if(state.subjects == null && state.subjects.isEmpty){
+        if(state.subjects != null && state.subjects.isNotEmpty){
           return Scaffold(
               appBar: AppBar(
                 title: Text("servy"),
