@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:project_one_c3_team/api/home/response/user_info_response.dart';
+import 'package:project_one_c3_team/domin/home/UsaCase/get_user_info_use_case.dart';
 import '../api/auth/request/Forgot_Password_Request.dart';
 import '../api/auth/request/Request.dart';
 import '../api/auth/request/Reset Password.dart';
@@ -21,6 +23,7 @@ class Viwe_Model extends Cubit<Viwe_State> {
   final ForgotPasswordUseCase _forgotPasswordUseCase;
   final VerifyResetCodeUseCase _verifyResetCodeUseCase;
   final ResetPasswordUseCase _resetPasswordUseCase;
+  final GetUserInfoUseCase _getUserInfoUseCase;
 
   Viwe_Model(
       this._case,
@@ -29,6 +32,7 @@ class Viwe_Model extends Cubit<Viwe_State> {
       this._forgotPasswordUseCase,
       this._verifyResetCodeUseCase,
       this._resetPasswordUseCase,
+      this._getUserInfoUseCase
       ) : super(Viwe_State.initial());
 
   Future<dynamic> doAction(doIntantAction action) async {
@@ -44,6 +48,8 @@ class Viwe_Model extends Cubit<Viwe_State> {
       return _verifyResetCode(action.request);
     } else if (action is ResetPasswordAction) {
       return _resetPassword(action.request);
+    }else if (action is GetUserInfoAction) {
+      return _getUserInfo(action.token);
     }
   }
 
@@ -112,6 +118,18 @@ class Viwe_Model extends Cubit<Viwe_State> {
       emit(state.copyWith(isLoading: false, errormasssege: e.toString()));
     }
   }
+
+  Future<UserInfoResponse> _getUserInfo(String token) async {
+    emit(state.copyWith(isLoading: true, sucsses: null, errormasssege: null));
+    try {
+      final response = await _getUserInfoUseCase.execute(token);
+      emit(state.copyWith(isLoading: false, sucsses: "User info retrieved successfully"));
+      return response;
+    } catch (error) {
+      emit(state.copyWith(isLoading: false, errormasssege: error.toString()));
+      rethrow;
+    }
+  }
 }
 
 sealed class doIntantAction {}
@@ -143,6 +161,10 @@ class VerifyResetCodeAction extends doIntantAction {
 class ResetPasswordAction extends doIntantAction {
   final Reset_Password request;
   ResetPasswordAction(this.request);
+}
+class GetUserInfoAction extends doIntantAction {
+  final String token;
+  GetUserInfoAction(this.token);
 }
 
 class Viwe_State {
