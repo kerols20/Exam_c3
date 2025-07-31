@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class CustomFormField extends StatefulWidget {
   final String? labelText;
   final String? hintText;
+  final bool? isReadOnly;
   final TextEditingController? controller;
   final TextInputType keyboardType;
   final String? Function(String?)? validator;
@@ -13,16 +14,18 @@ class CustomFormField extends StatefulWidget {
   final VoidCallback? onSuffixIconPressed;
   final InputBorder? enabledBorder;
   final InputBorder? focusedBorder;
+  final bool isfocused;
   final bool enabled;
   final EdgeInsetsGeometry? padding;
   final void Function(String)? onChanged;
   final FloatingLabelBehavior floatingLabelBehavior;
 
   const CustomFormField({
-    Key? key,
+    super.key,
     this.labelText,
     this.hintText,
     this.controller,
+    this.isReadOnly = false,
     this.keyboardType = TextInputType.text,
     this.validator,
     this.isPassword = false,
@@ -35,8 +38,9 @@ class CustomFormField extends StatefulWidget {
     this.enabled = true,
     this.padding,
     this.onChanged,
+    this.isfocused=false,
     this.floatingLabelBehavior = FloatingLabelBehavior.auto,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomFormField> createState() => _CustomFormFieldState();
@@ -61,6 +65,9 @@ class _CustomFormFieldState extends State<CustomFormField> {
         obscureText: widget.isPassword ? _isObscured : false,
         validator: widget.validator,
         enabled: widget.enabled,
+        focusNode: widget.isfocused ? FocusNode() : null,
+        readOnly: widget.isReadOnly ?? false,
+        
         onChanged: (value) {
           if (widget.onChanged != null) {
             widget.onChanged!(value);

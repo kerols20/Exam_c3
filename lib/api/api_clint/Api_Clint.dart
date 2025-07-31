@@ -1,4 +1,5 @@
 import 'package:project_one_c3_team/api/auth/request/sign_in_request.dart';
+import 'package:project_one_c3_team/api/home/response/user_info_response.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import '../auth/request/Forgot_Password_Request.dart';
@@ -37,4 +38,8 @@ abstract class ApiClient {
 
   @PUT("v1/auth/resetPassword")
   Future<void> resetPassword(@Body() Reset_Password request);
+
+  @GET("v1/auth/profileData")
+  Future<UserInfoResponse> getProfileData(@Header("token") String token);
 }
+
