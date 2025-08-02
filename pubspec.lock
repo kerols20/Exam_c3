@@ -53,10 +53,10 @@ packages:
     dependency: transitive
     description:
       name: build
-      sha256: "51dc711996cbf609b90cbe5b335bbce83143875a9d58e4b5c6d3c4f684d3dda7"
+      sha256: "7d95cbbb1526ab5ae977df9b4cc660963b9b27f6d1075c0b34653868911385e4"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.4"
+    version: "3.0.0"
   build_config:
     dependency: transitive
     description:
@@ -77,26 +77,26 @@ packages:
     dependency: transitive
     description:
       name: build_resolvers
-      sha256: ee4257b3f20c0c90e72ed2b57ad637f694ccba48839a821e87db762548c22a62
+      sha256: "38c9c339333a09b090a638849a4c56e70a404c6bdd3b511493addfbc113b60c2"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.4"
+    version: "3.0.0"
   build_runner:
     dependency: "direct dev"
     description:
       name: build_runner
-      sha256: "382a4d649addbfb7ba71a3631df0ec6a45d5ab9b098638144faf27f02778eb53"
+      sha256: b971d4a1c789eba7be3e6fe6ce5e5b50fd3719e3cb485b3fad6d04358304351d
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.4"
+    version: "2.6.0"
   build_runner_core:
     dependency: transitive
     description:
       name: build_runner_core
-      sha256: "85fbbb1036d576d966332a3f5ce83f2ce66a40bea1a94ad2d5fc29a19a0d3792"
+      sha256: c04e612ca801cd0928ccdb891c263a2b1391cb27940a5ea5afcf9ba894de5d62
       url: "https://pub.dev"
     source: hosted
-    version: "9.1.2"
+    version: "9.2.0"
   built_collection:
     dependency: transitive
     description:
@@ -388,18 +388,18 @@ packages:
     dependency: "direct main"
     description:
       name: injectable
-      sha256: "5e1556ea1d374fe44cbe846414d9bab346285d3d8a1da5877c01ad0774006068"
+      sha256: "1b86fab6a98c11a97e5c718afb00e628d47d183c2a2256392e995a4c561141c1"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.0"
+    version: "2.5.1"
   injectable_generator:
     dependency: "direct dev"
     description:
       name: injectable_generator
-      sha256: b04673a4c88b3a848c0c77bf58b8309f9b9e064d9fe1df5450c8ee1675eaea1a
+      sha256: "63f0b040ded7846a3c51279540b35e5f77b513102dceb3306087bf5dfa7ea7c1"
       url: "https://pub.dev"
     source: hosted
-    version: "2.7.0"
+    version: "2.8.0"
   io:
     dependency: transitive
     description:
@@ -428,10 +428,10 @@ packages:
     dependency: "direct dev"
     description:
       name: json_serializable
-      sha256: c50ef5fc083d5b5e12eef489503ba3bf5ccc899e487d691584699b4bdefeea8c
+      sha256: ce2cf974ccdee13be2a510832d7fba0b94b364e0b0395dee42abaa51b855be27
       url: "https://pub.dev"
     source: hosted
-    version: "6.9.5"
+    version: "6.10.0"
   leak_tracker:
     dependency: transitive
     description:
@@ -512,6 +512,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  mockito:
+    dependency: "direct main"
+    description:
+      name: mockito
+      sha256: "2314cbe9165bcd16106513df9cf3c3224713087f09723b128928dc11a4379f99"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.5.0"
   modal_progress_hud_nsn:
     dependency: "direct main"
     description:
@@ -676,10 +684,10 @@ packages:
     dependency: "direct dev"
     description:
       name: retrofit_generator
-      sha256: "9abcf21acb95bf7040546eafff87f60cf0aee20b05101d71f99876fc4df1f522"
+      sha256: bf8c5fc06d92de0cc79ace127a620af6dcbabaf7426da91e308a5bc3a0266c3e
       url: "https://pub.dev"
     source: hosted
-    version: "9.7.0"
+    version: "10.0.0"
   shelf:
     dependency: transitive
     description:
@@ -705,10 +713,10 @@ packages:
     dependency: transitive
     description:
       name: source_gen
-      sha256: "35c8150ece9e8c8d263337a265153c3329667640850b9304861faea59fc98f6b"
+      sha256: fc787b1f89ceac9580c3616f899c9a447413cbdac1df071302127764c023a134
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "3.0.0"
   source_helper:
     dependency: transitive
     description:
