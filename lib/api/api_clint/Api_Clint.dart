@@ -6,8 +6,8 @@ import 'package:project_one_c3_team/api/home/response/user_info_response.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import '../auth/request/Forgot_Password_Request.dart';
-import '../auth/request/Request.dart';
 import '../auth/request/Reset Password.dart';
+import '../auth/request/SignUpRequest.dart';
 import '../auth/request/Verify_Reset_password.dart';
 import '../home/response/Get_Exams_by_Id.dart';
 import '../home/response/Get_qustion_by_Exam.dart';
@@ -44,6 +44,8 @@ abstract class ApiClient {
 
   @GET("v1/auth/profileData")
   Future<UserInfoResponse> getProfileData(@Header("token") String token);
+
+
 
   @PUT("v1/auth/editProfile")
   Future<UserInfoResponse> editProfile(

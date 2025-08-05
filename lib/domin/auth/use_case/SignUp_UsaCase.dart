@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
-
-import '../../../api/auth/request/Request.dart';
+import '../../../api/auth/request/SignUpRequest.dart';
 import '../repositories/SignUp_reposetries.dart';
+// unit testing
 @injectable
 class SignUp_UsaCase{
   SignUp_Rpo _signUp_Rpo;

@@ -129,8 +129,7 @@ class Home_viwe_model extends Cubit<Home_viwe_model_status> {
     String lastName,
     String phone,
     String username,
-    String email,
-  ) async {
+    String email,) async {
     emit(state.copyWith(isLoading: true, sucsses: null, errormasssege: null));
     try {
       final request = EditProfileRequest(
@@ -153,9 +152,12 @@ class Home_viwe_model extends Cubit<Home_viwe_model_status> {
     emit(state.copyWith(isLoading: true, sucsses: null, errormasssege: null));
     try {
       final response = await _changePasswordUseCase.execute(token, request);
+      print("Change password response: $response");
+      print("Change password response message: ${response.message}");
       emit(state.copyWith(isLoading: false, sucsses: response.message));
-      return response; // Return the full response with the new token
+      return response;
     } catch (error) {
+      print("Change password error: $error");
       emit(state.copyWith(isLoading: false, errormasssege: error.toString()));
       rethrow;
     }
@@ -252,5 +254,6 @@ class Home_viwe_model_status {
   }
 }
 
-////testsam@gmail.com
+///testsam@gmail.com
 /// !@$##E#Rfrgg232r
+/// d3ry237y132232XXS@@@

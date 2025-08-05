@@ -1,10 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:project_one_c3_team/api/home/response/user_info_response.dart';
 import 'package:project_one_c3_team/domin/home/UsaCase/get_user_info_use_case.dart';
 import '../api/auth/request/Forgot_Password_Request.dart';
-import '../api/auth/request/Request.dart';
 import '../api/auth/request/Reset Password.dart';
+import '../api/auth/request/SignUpRequest.dart';
 import '../api/auth/request/Verify_Reset_password.dart';
 import '../api/auth/request/sign_in_request.dart';
 import '../api/auth/response/sign_in_response.dart';
@@ -151,7 +152,7 @@ class ResetPasswordAction extends doIntantAction {
 }
 
 
-class Viwe_State {
+class Viwe_State extends Equatable {
   final bool isLoading;
   final String? sucsses;
   final String? errormasssege;
@@ -186,56 +187,11 @@ class Viwe_State {
       subjects: [],
     );
   }
+  @override
+  List<Object?> get props => [isLoading, sucsses, errormasssege, subjects];
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/// Future<void> forgotPasswordSendCode(ForgotPasswordRequest request) async {
-//      emit(state.copyWith(isLoading: true));
-//      try {
-//        await _forgotPasswordUseCase.forgotPasswordSendCode(request);
-//        emit(state.copyWith(isLoading: false, sucsses: "forgotPassword success", errormasssege: "some thing wrong"));
-//      } catch (e) {
-//        emit(state.copyWith(isLoading: false, errormasssege: e.toString()));
-//      }
-//    }
-//    Future<void> verifyResetCode(Verify_reset_password request) async {
-//      emit(state.copyWith(isLoading: true));
-//      try {
-//        await _verifyResetCodeUseCase.verifyResetCode(request);
-//        emit(state.copyWith(isLoading: false, sucsses: "Code verified"));
-//      } catch (e) {
-//        emit(state.copyWith(isLoading: false, errormasssege: e.toString()));
-//      }
-//    }
-//    Future<void> resetPassword(Reset_Password request) async {
-//      emit(state.copyWith(isLoading: true));
-//      try {
-//        await _resetPasswordUseCase.resetPassword(request);
-//        emit(state.copyWith(isLoading: false, sucsses: "Password reset"));
-//      } catch (e) {
-//        emit(state.copyWith(isLoading: false, errormasssege: e.toString()));
-//      }
-//    }
 
 
 

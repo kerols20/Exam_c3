@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:project_one_c3_team/presentation/widget/custom_Button.dart';
-import 'package:project_one_c3_team/api/auth/request/Request.dart';
 import 'package:project_one_c3_team/di/di.dart';
+import '../../../api/auth/request/SignUpRequest.dart';
 import '../../../viweModel/viweModel.dart';
 import '../../widget/Validators.dart';
 

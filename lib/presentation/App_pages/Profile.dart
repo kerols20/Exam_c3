@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:project_one_c3_team/api/auth/request/Request.dart';
 import 'package:project_one_c3_team/api/home/request/edit_profile_request.dart';
 import 'package:project_one_c3_team/api/home/response/user_info_response.dart';
 import 'package:project_one_c3_team/di/di.dart';
 import 'package:project_one_c3_team/presentation/App_pages/change_password_page.dart';
 import 'package:project_one_c3_team/presentation/widget/custom_Button.dart';
 import 'package:project_one_c3_team/viweModel/Home_viwe_model/Home_viwe_model.dart';
-import 'package:project_one_c3_team/viweModel/viweModel.dart';
+
 
 class Profile_page extends StatefulWidget {
-  const Profile_page({super.key});
+   Profile_page({super.key});
 
   @override
   State<Profile_page> createState() => _Profile_pageState();
-  final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
+  final FlutterSecureStorage secureStorage =  FlutterSecureStorage();
 }
 
 class _Profile_pageState extends State<Profile_page> {
@@ -99,6 +98,10 @@ class _Profile_pageState extends State<Profile_page> {
             automaticallyImplyLeading: false,
             title: Row(
               children: [
+                ElevatedButton(onPressed: () async {
+                  await widget.secureStorage.delete(key: "token");
+                  Navigator.pushNamed(context, '/signInScreen');
+                }, child: Text("Logout")),
                 if (isEditing)
                   IconButton(
                     icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
@@ -248,6 +251,7 @@ class _Profile_pageState extends State<Profile_page> {
                           ),
                         ),
                       ),
+                  SizedBox(height: 20),
                 ],
               ),
             ),
@@ -400,3 +404,6 @@ class _Profile_pageState extends State<Profile_page> {
   }
 }
 
+///testsam@gmail.com
+/// !@$##E#Rfrgg232r
+/// d3ry237y132232XXS@@@
