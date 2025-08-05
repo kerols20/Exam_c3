@@ -23,7 +23,7 @@ class Viwe_Model extends Cubit<Viwe_State> {
   final ForgotPasswordUseCase _forgotPasswordUseCase;
   final VerifyResetCodeUseCase _verifyResetCodeUseCase;
   final ResetPasswordUseCase _resetPasswordUseCase;
-  final GetUserInfoUseCase _getUserInfoUseCase;
+  
 
   Viwe_Model(
       this._case,
@@ -32,7 +32,6 @@ class Viwe_Model extends Cubit<Viwe_State> {
       this._forgotPasswordUseCase,
       this._verifyResetCodeUseCase,
       this._resetPasswordUseCase,
-      this._getUserInfoUseCase
       ) : super(Viwe_State.initial());
 
   Future<dynamic> doAction(doIntantAction action) async {
@@ -48,8 +47,6 @@ class Viwe_Model extends Cubit<Viwe_State> {
       return _verifyResetCode(action.request);
     } else if (action is ResetPasswordAction) {
       return _resetPassword(action.request);
-    }else if (action is GetUserInfoAction) {
-      return _getUserInfo(action.token);
     }
   }
 
@@ -119,17 +116,7 @@ class Viwe_Model extends Cubit<Viwe_State> {
     }
   }
 
-  Future<UserInfoResponse> _getUserInfo(String token) async {
-    emit(state.copyWith(isLoading: true, sucsses: null, errormasssege: null));
-    try {
-      final response = await _getUserInfoUseCase.execute(token);
-      emit(state.copyWith(isLoading: false, sucsses: "User info retrieved successfully"));
-      return response;
-    } catch (error) {
-      emit(state.copyWith(isLoading: false, errormasssege: error.toString()));
-      rethrow;
-    }
-  }
+  
 }
 
 sealed class doIntantAction {}
@@ -162,10 +149,7 @@ class ResetPasswordAction extends doIntantAction {
   final Reset_Password request;
   ResetPasswordAction(this.request);
 }
-class GetUserInfoAction extends doIntantAction {
-  final String token;
-  GetUserInfoAction(this.token);
-}
+
 
 class Viwe_State {
   final bool isLoading;

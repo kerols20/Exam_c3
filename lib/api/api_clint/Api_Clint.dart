@@ -1,4 +1,7 @@
 import 'package:project_one_c3_team/api/auth/request/sign_in_request.dart';
+import 'package:project_one_c3_team/api/home/request/change_password_request.dart';
+import 'package:project_one_c3_team/api/home/request/edit_profile_request.dart';
+import 'package:project_one_c3_team/api/home/response/change_profile_password_response.dart';
 import 'package:project_one_c3_team/api/home/response/user_info_response.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
@@ -41,5 +44,17 @@ abstract class ApiClient {
 
   @GET("v1/auth/profileData")
   Future<UserInfoResponse> getProfileData(@Header("token") String token);
+
+  @PUT("v1/auth/editProfile")
+  Future<UserInfoResponse> editProfile(
+    @Header("token") String token,
+    @Body() EditProfileRequest request,
+  );
+
+  @PATCH("v1/auth/changePassword")
+  Future<ChangeProfilePasswordResponse> changePassword(
+    @Header("token") String token,
+    @Body() ChangePasswordRequest request,
+  );
 }
 

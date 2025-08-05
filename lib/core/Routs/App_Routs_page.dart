@@ -7,6 +7,7 @@ import '../../presentation/views/auth/VerifyResetCode.dart';
 import '../../presentation/views/auth/reset_password_screen.dart';
 import '../../presentation/views/auth/sign_up_view.dart';
 import 'App_Routs_names.dart';
+import '../../presentation/App_pages/change_password_page.dart';
 
 interface class App_Routs_page {
   static Route route(RouteSettings settings) {
@@ -23,6 +24,8 @@ interface class App_Routs_page {
             return MaterialPageRoute(builder: (context) => ForgetPassword());
             case App_Routs_names.verifyCodeScreen:
               return MaterialPageRoute(builder: (context) => EmailVerification());
+              case App_Routs_names.changePasswordPage:
+                return MaterialPageRoute(builder: (context) => ChangePasswordPage());
       default:
         return MaterialPageRoute(builder: (context) => SignInView());
     }

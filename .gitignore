@@ -51,3 +51,5 @@ lib/di/di.config.dart
 **/generated_plugin_registrant.*
 **/generated_plugins.cmake
 **/GeneratedPluginRegistrant.swift
+lib/api/api_clint/Api_Clint.g.dart
+lib/api/api_clint/Api_Clint.g.dart

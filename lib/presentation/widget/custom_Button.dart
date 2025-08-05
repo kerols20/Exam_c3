@@ -14,7 +14,7 @@ class CustomFormField extends StatefulWidget {
   final VoidCallback? onSuffixIconPressed;
   final InputBorder? enabledBorder;
   final InputBorder? focusedBorder;
-  final bool isfocused;
+  final FocusNode? focusNode;
   final bool enabled;
   final EdgeInsetsGeometry? padding;
   final void Function(String)? onChanged;
@@ -38,7 +38,7 @@ class CustomFormField extends StatefulWidget {
     this.enabled = true,
     this.padding,
     this.onChanged,
-    this.isfocused=false,
+    this.focusNode,
     this.floatingLabelBehavior = FloatingLabelBehavior.auto,
   });
 
@@ -65,7 +65,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
         obscureText: widget.isPassword ? _isObscured : false,
         validator: widget.validator,
         enabled: widget.enabled,
-        focusNode: widget.isfocused ? FocusNode() : null,
+        focusNode: widget.focusNode,
         readOnly: widget.isReadOnly ?? false,
         
         onChanged: (value) {
