@@ -98,10 +98,6 @@ class _Profile_pageState extends State<Profile_page> {
             automaticallyImplyLeading: false,
             title: Row(
               children: [
-                ElevatedButton(onPressed: () async {
-                  await widget.secureStorage.delete(key: "token");
-                  Navigator.pushNamed(context, '/signInScreen');
-                }, child: Text("Logout")),
                 if (isEditing)
                   IconButton(
                     icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
@@ -405,5 +401,6 @@ class _Profile_pageState extends State<Profile_page> {
 }
 
 ///testsam@gmail.com
-/// !@$##E#Rfrgg232r
+
 /// d3ry237y132232XXS@@@
+/// jdwq9389483294@@#2
