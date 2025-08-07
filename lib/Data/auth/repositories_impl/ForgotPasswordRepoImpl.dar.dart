@@ -14,6 +14,4 @@ class ForgotPasswordRepoImpl  implements ForgotPasswordReposetories{
   Future<void> forgotPasswordSendCode(ForgotPasswordRequest request) {
     return _forgotPasswordRemoteDataSource.forgotPasswordSendCode(request);
   }
-
-
 }
