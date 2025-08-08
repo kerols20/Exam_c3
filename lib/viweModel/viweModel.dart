@@ -25,8 +25,6 @@ class Viwe_Model extends Cubit<Viwe_State> {
   final ForgotPasswordUseCase _forgotPasswordUseCase;
   final VerifyResetCodeUseCase _verifyResetCodeUseCase;
   final ResetPasswordUseCase _resetPasswordUseCase;
-  
-
   Viwe_Model(
       this._case,
       this._signInUseCase,
@@ -51,82 +49,83 @@ class Viwe_Model extends Cubit<Viwe_State> {
       return _resetPassword(action.request);
     }
   }
-
   Future<Sign_in_response> _signIn(SignInRequest request) async {
     emit(state.copyWith(isLoading: true, sucsses: null, errormasssege: null));
-    
       final response = await _signInUseCase.signIn(request);
-       response.fold(
+       return response.fold(
       onSuccess: (response) {
         emit(state.copyWith(
-          isLoading: false, 
+          isLoading: false,
           sucsses: "SignIn success",
         ));
+        return response;
       },
       onFailure: (failure) {
         emit(state.copyWith(
-          isLoading: false, 
+          isLoading: false,
           errormasssege: failure.userFriendlyMessage,
         ));
+        throw Exception(failure.userFriendlyMessage);
       },
     );
   }
 
   Future<void> _signUp(SignUpRequest request) async {
     emit(state.copyWith(isLoading: true, sucsses: null, errormasssege: null));
-    try {
-      await _case.signUp(request);
-      emit(state.copyWith(isLoading: false, sucsses: "SignUp success"));
-    } catch (error) {
-      emit(state.copyWith(isLoading: false, errormasssege: error.toString()));
-    }
+    final response = await _case.signUp(request);
+    return response.fold(onSuccess: (data) {
+      emit(state.copyWith(isLoading: false, sucsses: "success"));
+    }, onFailure: (failure) {
+      emit(state.copyWith(isLoading: false, errormasssege: failure.userFriendlyMessage));
+    },);
   }
 
   Future<void> _Get_subjects_Data(String token) async {
     emit(state.copyWith(isLoading: true, sucsses: null, errormasssege: null));
-    try {
-      List<subject> subjects = await _get_subject_use_case.Get_subjects_Data(token);
-      emit(state.copyWith(isLoading: false, sucsses: "sucsses", subjects: subjects));
-    } catch (e) {
-      emit(state.copyWith(isLoading: false, errormasssege: e.toString()));
-    }
+    final response = await _get_subject_use_case.Get_subjects_Data(token);
+    return response.fold(
+      onSuccess: (subject) {
+      emit(state.copyWith(
+        isLoading: false,
+        sucsses: "success",
+        subjects: subject,
+      ));
+    }, onFailure: (failure) {
+      emit(state.copyWith(
+        isLoading: false,
+        errormasssege: failure.userFriendlyMessage,
+      ));
+    },);
   }
 
   Future<void> _forgotPasswordSendCode(ForgotPasswordRequest request) async {
     emit(state.copyWith(isLoading: true, sucsses: null, errormasssege: null));
-    try {
-      await _forgotPasswordUseCase.forgotPasswordSendCode(request);
-      emit(state.copyWith(isLoading: false, sucsses: "ForgotPassword success"));
-    } catch (e) {
-      emit(state.copyWith(isLoading: false, errormasssege: e.toString()));
-    }
+    final response = await _forgotPasswordUseCase.forgotPasswordSendCode(request);
+    return response.fold(onSuccess: (data) {
+      emit(state.copyWith(isLoading: false, sucsses: "success"));
+    }, onFailure: (failure) {
+      emit(state.copyWith(isLoading: false, errormasssege: failure.userFriendlyMessage));
+    },);
   }
 
   Future<void> _verifyResetCode(Verify_reset_password request) async {
-    print("Start verifying code...");
     emit(state.copyWith(isLoading: true, sucsses: null, errormasssege: null));
-    try {
-      await _verifyResetCodeUseCase.verifyResetCode(request);
-      print("Verification successful");
-      emit(state.copyWith(isLoading: false, sucsses: "verify success"));
-    } catch (e) {
-      print("Verification failed: $e");
-      emit(state.copyWith(isLoading: false, errormasssege: e.toString()));
-    }
+    final response = await _verifyResetCodeUseCase.verifyResetCode(request);
+    return response.fold(onSuccess: (data) {
+      emit(state.copyWith(isLoading: false, sucsses: "success"));
+    }, onFailure:  (failure) {
+      emit(state.copyWith(isLoading: false, errormasssege: failure.userFriendlyMessage));
+    },);
   }
-
-
   Future<void> _resetPassword(Reset_Password request) async {
     emit(state.copyWith(isLoading: true, sucsses: null, errormasssege: null));
-    try {
-      await _resetPasswordUseCase.resetPassword(request);
-      emit(state.copyWith(isLoading: false, sucsses: "Password reset"));
-    } catch (e) {
-      emit(state.copyWith(isLoading: false, errormasssege: e.toString()));
-    }
+    final response = await _resetPasswordUseCase.resetPassword(request);
+    return response.fold(onSuccess: (data) {
+      emit(state.copyWith(isLoading: false, sucsses: "success"));
+    }, onFailure: (failure) {
+      emit(state.copyWith(isLoading: false, errormasssege: failure.userFriendlyMessage));
+    },);
   }
-
-  
 }
 
 sealed class doIntantAction {}

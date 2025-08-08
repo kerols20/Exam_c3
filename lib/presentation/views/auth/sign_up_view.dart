@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -208,8 +207,5 @@ class _SignUpScreenState extends State<SignUpScreen> {
     await widget.secureStorage.write(
   key: 'signUpProfile',
   value: jsonEncode(request.toJson()),
-);
-     
+);}
   }
-  
-}

@@ -8,7 +8,6 @@ import 'package:project_one_c3_team/api/home/request/change_password_request.dar
 class ChangePasswordUseCase {
   final ChangePasswordRepository repository;
   ChangePasswordUseCase(this.repository);
-
   Future<Result<ChangeProfilePasswordResponse>> execute(String token, ChangePasswordRequest request) {
     return repository.changePassword(token, request);
   }

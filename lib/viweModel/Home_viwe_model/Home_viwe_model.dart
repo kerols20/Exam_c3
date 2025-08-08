@@ -4,6 +4,7 @@ import 'package:project_one_c3_team/api/home/request/change_password_request.dar
 import 'package:project_one_c3_team/api/home/request/edit_profile_request.dart';
 import 'package:project_one_c3_team/api/home/response/change_profile_password_response.dart';
 import 'package:project_one_c3_team/api/home/response/user_info_response.dart';
+import 'package:project_one_c3_team/core/errors/result/results.dart';
 import 'package:project_one_c3_team/domin/home/UsaCase/change_password_use_case.dart';
 import 'package:project_one_c3_team/domin/home/UsaCase/edit_profile_use_case.dart';
 import 'package:project_one_c3_team/domin/home/UsaCase/get_user_info_use_case.dart';
@@ -61,76 +62,57 @@ class Home_viwe_model extends Cubit<Home_viwe_model_status> {
 
   Future<void> _getQuestions(String token, String exam) async {
     emit(state.copyWith(isLoading: true, sucsses: null, errormasssege: null));
-    try {
-      List<Get_qustion_by_Exam_Id_model> qustion = await _usecase.Get_qustion(
-        token,
-        exam,
-      );
-      emit(
-        state.copyWith(isLoading: false, sucsses: "sucsses", qustion: qustion),
-      );
-    } catch (e) {
-      print("Error $e");
-      emit(state.copyWith(isLoading: false, errormasssege: e.toString()));
-    }
+    final response = await _usecase.Get_qustion(token, exam);
+    return response.fold(onSuccess: (qustion) {
+      emit(state.copyWith(isLoading: false, sucsses: "sucsses", qustion: qustion));
+    }, onFailure: (failure) {
+      emit(state.copyWith(isLoading: false, errormasssege: failure.userFriendlyMessage));
+  });
   }
 
   Future<void> _Get_subjects_Data(String token) async {
     emit(state.copyWith(isLoading: true, sucsses: null, errormasssege: null));
-    try {
-      List<subject> subjects = await _get_subject_use_case.Get_subjects_Data(
-        token,
-      );
-      emit(
-        state.copyWith(
-          isLoading: false,
-          sucsses: "sucsses",
-          subjects: subjects,
-        ),
-      );
-    } catch (e) {
-      emit(state.copyWith(isLoading: false, errormasssege: e.toString()));
-    }
+    final response = await _get_subject_use_case.Get_subjects_Data(token);
+    return response.fold(onSuccess: (subject) {
+      emit(state.copyWith(isLoading: false, sucsses: "sucsses", subjects: subject));
+    }, onFailure: (failure) {
+      emit(state.copyWith(isLoading: false, errormasssege: failure.userFriendlyMessage));
+    });
   }
 
   Future<void> _Get_Exams_by_Id_subject(String subject, String token) async {
     emit(state.copyWith(isLoading: true, sucsses: null, errormasssege: null));
-    try {
-      List<Get_Exams_by_Id_subject_model> exams = await _cse.getExams(
-        subject,
-        token,
-      );
-      emit(state.copyWith(isLoading: false, sucsses: "sucsses", exams: exams));
-    } catch (e) {
-      emit(state.copyWith(isLoading: false, errormasssege: e.toString()));
-    }
+    final response = await _cse.getExams(subject, token);
+    return response.fold(onSuccess: (Get_Exams_by_Id_subject) {
+      emit(state.copyWith(isLoading: false, sucsses: "sucsses", exams: Get_Exams_by_Id_subject));
+    }, onFailure: (failure) {
+      emit(state.copyWith(isLoading: false, errormasssege: failure.userFriendlyMessage));
+    },);
   }
 
   Future<UserInfoResponse> _getUserInfo(String token) async {
     emit(state.copyWith(isLoading: true, sucsses: null, errormasssege: null));
-    try {
-      final response = await _getUserInfoUseCase.execute(token);
-      emit(
-        state.copyWith(
-          isLoading: false,
-          sucsses: "User info retrieved successfully",
-        ),
-      );
-      return response;
-    } catch (error) {
-      emit(state.copyWith(isLoading: false, errormasssege: error.toString()));
-      rethrow;
-    }
+    final response = await _getUserInfoUseCase.execute(token);
+    return response.fold(onSuccess: (data) {
+      emit(state.copyWith(isLoading: false, sucsses: "sucsses"));
+      return data;
+    }, onFailure: (failure) {
+      emit(state.copyWith(isLoading: false, errormasssege: failure.userFriendlyMessage));
+      throw Exception(failure.userFriendlyMessage);
+    },
+    );
   }
 
-  Future<UserInfoResponse> _editProfile(
-    String token,
-    String firstName,
-    String lastName,
-    String phone,
-    String username,
-    String email,) async {
+  Future<Result<UserInfoResponse>> _editProfile(
+      String token,
+      String firstName,
+      String lastName,
+      String phone,
+      String username,
+      String email,
+      ) async {
     emit(state.copyWith(isLoading: true, sucsses: null, errormasssege: null));
+
     try {
       final request = EditProfileRequest(
         username: username,
@@ -139,28 +121,36 @@ class Home_viwe_model extends Cubit<Home_viwe_model_status> {
         email: email,
         phone: phone,
       );
-      final response = await _editProfileUseCase.editProfile(token, request);
-      emit(state.copyWith(isLoading: false, sucsses: response.message));
-      return response;
+
+      final result = await _editProfileUseCase.editProfile(token, request);
+
+      result.fold(
+        onSuccess: (data) {
+          emit(state.copyWith(isLoading: false, sucsses: data.message));
+        },
+        onFailure: (failure) {
+          emit(state.copyWith(isLoading: false, errormasssege: failure.userFriendlyMessage));
+        },
+      );
+
+      return result;
     } catch (error) {
       emit(state.copyWith(isLoading: false, errormasssege: error.toString()));
       rethrow;
     }
   }
 
+
   Future<ChangeProfilePasswordResponse> _changePassword(String token, ChangePasswordRequest request) async {
     emit(state.copyWith(isLoading: true, sucsses: null, errormasssege: null));
-    try {
-      final response = await _changePasswordUseCase.execute(token, request);
-      print("Change password response: $response");
-      print("Change password response message: ${response.message}");
-      emit(state.copyWith(isLoading: false, sucsses: response.message));
-      return response;
-    } catch (error) {
-      print("Change password error: $error");
-      emit(state.copyWith(isLoading: false, errormasssege: error.toString()));
-      rethrow;
-    }
+    final response = await _changePasswordUseCase.execute(token, request);
+    return response.fold(onSuccess: (data) {
+      emit(state.copyWith(isLoading: false, sucsses: data.message));
+      return data;
+    }, onFailure: (failure) {
+      emit(state.copyWith(isLoading: false, errormasssege: failure.userFriendlyMessage));
+      throw Exception(failure.userFriendlyMessage);
+    },);
   }
 }
 

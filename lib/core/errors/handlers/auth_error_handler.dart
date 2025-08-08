@@ -44,15 +44,78 @@ class AuthErrorHandler {
     }
     return Failure(UnknownFailure.general());
   }
+  Result<T> handle<T>(Exception error) {
+    if (error is DioException) {
+      return Failure(_mapGeneralError(error));
+    }
+    return Failure(UnknownFailure.general());
+  }
 
+  AppFailure _mapGeneralError(DioException error) {
+    switch (error.type) {
+      case DioExceptionType.connectionTimeout:
+        return NetworkFailure.connectionTimeout();
+
+      case DioExceptionType.connectionError:
+        return NetworkFailure.noInternet();
+
+      case DioExceptionType.badResponse:
+        final statusCode = error.response?.statusCode;
+        final serverMessage = error.response?.data['message']?.toString().toLowerCase() ?? '';
+
+        switch (statusCode) {
+          case 400:
+            return ValidationFailure.invalidRqaust();
+          case 401:
+            if (serverMessage.contains('token') && serverMessage.contains('missing')) {
+              return AuthenticationFailure.missingToken();
+            }
+            if (serverMessage.contains('token') && serverMessage.contains('expired')) {
+              return AuthenticationFailure.tokenExpired();
+            }
+            if (serverMessage.contains('invalid token')) {
+              return AuthenticationFailure.invalidToken();
+            }
+            return AuthenticationFailure.invalidCredentials();
+
+          case 403:
+            if (serverMessage.contains('privilege') || serverMessage.contains('permission')) {
+              return AuthorizationFailure.insufficientPrivileges();
+            }
+            return AuthorizationFailure.accessDenied();
+
+          case 404:
+            return ValidationFailure.passwordMismatch();
+
+          case 500:
+            return ServerFailure.internalError();
+
+          default:
+            return UnknownFailure.general();
+        }
+
+      default:
+        return UnknownFailure.general();
+    }
+  }
   AppFailure _mapSignInError(DioException error) {
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
         return NetworkFailure.connectionTimeout();
+
       case DioExceptionType.connectionError:
         return NetworkFailure.noInternet();
+
       case DioExceptionType.badResponse:
-        switch (error.response?.statusCode) {
+        final statusCode = error.response?.statusCode;
+        final serverMessage = error.response?.data['message']?.toString().toLowerCase() ?? '';
+        if (serverMessage.contains('password') && serverMessage.contains('incorrect')) {
+          return AuthenticationFailure.invalidPassword();
+        }
+        if (serverMessage.contains('email') && serverMessage.contains('not found')) {
+          return AuthenticationFailure.emailNotFound();
+        }
+        switch (statusCode) {
           case 400:
           case 401:
             return AuthenticationFailure.invalidCredentials();
@@ -66,7 +129,11 @@ class AuthErrorHandler {
     }
   }
 
+
   AppFailure _mapSignUpError(DioException error) {
+    if (error.response?.data['message']?.toString().contains('exists') ?? false) {
+      return ValidationFailure.emailExists();
+    }
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
         return NetworkFailure.connectionTimeout();
@@ -75,6 +142,8 @@ class AuthErrorHandler {
       case DioExceptionType.badResponse:
         switch (error.response?.statusCode) {
           case 400:
+          case 409:
+          case 422:
             return ValidationFailure.emailExists();
           case 500:
             return ServerFailure.internalError();
@@ -85,6 +154,7 @@ class AuthErrorHandler {
         return UnknownFailure.general();
     }
   }
+
 
   AppFailure _mapForgotPasswordError(DioException error) {
     switch (error.type) {

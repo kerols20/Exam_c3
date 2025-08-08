@@ -14,5 +14,4 @@ class SignInRepoImpl  implements SignInRepositories{
   Future<Result<Sign_in_response>> signIn(SignInRequest request) async {
     return _signInRemoteDataSource.signIn(request);
   }
-
 }

@@ -248,6 +248,10 @@ class _Profile_pageState extends State<Profile_page> {
                         ),
                       ),
                   SizedBox(height: 20),
+                  ElevatedButton(onPressed: () {
+                    widget.secureStorage.delete(key: "token");
+                    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+                  }, child: Text("log out"))
                 ],
               ),
             ),
@@ -401,6 +405,6 @@ class _Profile_pageState extends State<Profile_page> {
 }
 
 ///testsam@gmail.com
-
+///
 /// d3ry237y132232XXS@@@
 /// jdwq9389483294@@#2

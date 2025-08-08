@@ -15,6 +15,12 @@ class ValidationFailure extends AppFailure {
     statusCode: 400,
     errorCode: 'EMAIL_EXISTS',
   );
+  factory ValidationFailure.invalidRqaust() => const ValidationFailure(
+    message: 'Invalid Rquset',
+    userFriendlyMessage: 'Invalid Rquset',
+    statusCode: 400,
+    errorCode: 'INVALID_RQUST',
+  );
 
   factory ValidationFailure.invalidEmail() => const ValidationFailure(
     message: 'Invalid email address',

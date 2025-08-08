@@ -1,6 +1,5 @@
 import 'package:injectable/injectable.dart';
 import 'package:project_one_c3_team/core/errors/result/results.dart';
-import 'package:project_one_c3_team/viweModel/viweModel.dart';
 import '../../../api/auth/request/SignUpRequest.dart';
 import '../../../domin/auth/repositories/SignUp_reposetries.dart';
 import '../data_source/SignUp_Data_Source.dart';
