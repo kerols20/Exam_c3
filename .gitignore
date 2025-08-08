@@ -53,3 +53,6 @@ lib/di/di.config.dart
 **/GeneratedPluginRegistrant.swift
 lib/api/api_clint/Api_Clint.g.dart
 lib/api/api_clint/Api_Clint.g.dart
+# Ignore mockito generated files
+*.mocks.dart
+
