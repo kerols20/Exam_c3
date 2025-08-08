@@ -1,6 +1,8 @@
+import 'package:project_one_c3_team/core/errors/result/results.dart';
+
 import '../../../api/auth/request/Forgot_Password_Request.dart';
 
 
 abstract class ForgotPasswordReposetories {
-  Future<void> forgotPasswordSendCode(ForgotPasswordRequest request);
+  Future<Result<void>> forgotPasswordSendCode(ForgotPasswordRequest request);
 }

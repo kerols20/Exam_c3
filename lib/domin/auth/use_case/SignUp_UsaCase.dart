@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:project_one_c3_team/core/errors/result/results.dart';
 import '../../../api/auth/request/SignUpRequest.dart';
 import '../repositories/SignUp_reposetries.dart';
 // unit testing
@@ -6,7 +7,7 @@ import '../repositories/SignUp_reposetries.dart';
 class SignUp_UsaCase{
   SignUp_Rpo _signUp_Rpo;
   SignUp_UsaCase(this._signUp_Rpo);
-  Future<void> signUp(SignUpRequest request){
+  Future<Result<void>> signUp(SignUpRequest request){
     return _signUp_Rpo.signUp(request);
   }
 }

@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:project_one_c3_team/api/home/response/user_info_response.dart';
+import 'package:project_one_c3_team/core/errors/result/results.dart';
 import 'package:project_one_c3_team/domin/home/UsaCase/get_user_info_use_case.dart';
 import '../api/auth/request/Forgot_Password_Request.dart';
 import '../api/auth/request/Reset Password.dart';
@@ -53,14 +54,22 @@ class Viwe_Model extends Cubit<Viwe_State> {
 
   Future<Sign_in_response> _signIn(SignInRequest request) async {
     emit(state.copyWith(isLoading: true, sucsses: null, errormasssege: null));
-    try {
+    
       final response = await _signInUseCase.signIn(request);
-      emit(state.copyWith(isLoading: false, sucsses: "SignIn success"));
-      return response;
-    } catch (error) {
-      emit(state.copyWith(isLoading: false, errormasssege: error.toString()));
-      rethrow;
-    }
+       response.fold(
+      onSuccess: (response) {
+        emit(state.copyWith(
+          isLoading: false, 
+          sucsses: "SignIn success",
+        ));
+      },
+      onFailure: (failure) {
+        emit(state.copyWith(
+          isLoading: false, 
+          errormasssege: failure.userFriendlyMessage,
+        ));
+      },
+    );
   }
 
   Future<void> _signUp(SignUpRequest request) async {
