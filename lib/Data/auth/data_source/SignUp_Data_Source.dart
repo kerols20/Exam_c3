@@ -1,7 +1,9 @@
 
 
+import 'package:project_one_c3_team/core/errors/result/results.dart';
+
 import '../../../api/auth/request/SignUpRequest.dart';
 
 abstract class SignUpDataSource{
-  Future<void> signUp(SignUpRequest request);
+  Future<Result<void>> signUp(SignUpRequest request);
 }

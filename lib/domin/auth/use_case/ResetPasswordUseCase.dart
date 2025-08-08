@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:project_one_c3_team/core/errors/result/results.dart';
 import '../../../api/auth/request/Reset Password.dart';
 import '../repositories/Reset_password_reposetories.dart';
 
@@ -6,7 +7,7 @@ import '../repositories/Reset_password_reposetories.dart';
 class ResetPasswordUseCase {
   final ResetPasswordReposetories _resetPasswordReposetories;
   ResetPasswordUseCase(this._resetPasswordReposetories);
-  Future<void> resetPassword(Reset_Password request) {
+  Future<Result<void>> resetPassword(Reset_Password request) {
     return _resetPasswordReposetories.resetPassword(request);
   }
 }

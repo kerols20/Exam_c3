@@ -1,6 +1,7 @@
 
 import 'package:injectable/injectable.dart';
 import 'package:project_one_c3_team/Data/auth/data_source/ForgotPasswordRemoteDataSource.dart';
+import 'package:project_one_c3_team/core/errors/result/results.dart';
 import '../../../api/auth/request/Forgot_Password_Request.dart';
 import '../../../domin/auth/repositories/forgot_password_reposetories.dart';
 
@@ -11,7 +12,7 @@ class ForgotPasswordRepoImpl  implements ForgotPasswordReposetories{
   ForgotPasswordRepoImpl(this._forgotPasswordRemoteDataSource);
 
   @override
-  Future<void> forgotPasswordSendCode(ForgotPasswordRequest request) {
+  Future<Result<void>> forgotPasswordSendCode(ForgotPasswordRequest request) {
     return _forgotPasswordRemoteDataSource.forgotPasswordSendCode(request);
   }
 }

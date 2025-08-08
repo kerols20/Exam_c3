@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:project_one_c3_team/core/errors/result/results.dart';
 
 import '../../../api/auth/request/Reset Password.dart';
 import '../../../domin/auth/repositories/Reset_password_reposetories.dart';
@@ -10,7 +11,7 @@ class ResetPasswordRepoImp  implements ResetPasswordReposetories{
   ResetPasswordRepoImp(this._resetPasswordRemoteDataSource);
 
   @override
-  Future<void> resetPassword(Reset_Password request) {
+  Future<Result<void>> resetPassword(Reset_Password request) {
     return _resetPasswordRemoteDataSource.resetPassword(request);
   }
 
