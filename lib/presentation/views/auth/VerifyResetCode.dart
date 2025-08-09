@@ -64,10 +64,10 @@ class _EmailVerificationState extends State<EmailVerification> {
     return BlocConsumer<Viwe_Model, Viwe_State>(
       bloc: _viweModel,
       listener: (context, state) {
-        if (state.sucsses == "verify success") {
+        if (state.sucsses == "success") {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const ResetPasswordScreen()),
+            MaterialPageRoute(builder: (context) =>  ResetPasswordScreen()),
           );
         }
         else if (state.errormasssege != null) {
@@ -110,9 +110,9 @@ class _EmailVerificationState extends State<EmailVerification> {
                     const SizedBox(height: 20),
                     TextButton(
                       onPressed: () {
-                        // _viweModel.doAction(
-                        //   VerifyResetCodeAction(Verify_reset_password(resetCode: "123456")),
-                        // );
+                        _viweModel.doAction(
+                          VerifyResetCodeAction(Verify_reset_password(resetCode: "123456")),
+                        );
                         print("Resend OTP");
                       },
                       child: const Text("Didn't receive code? Resend"),

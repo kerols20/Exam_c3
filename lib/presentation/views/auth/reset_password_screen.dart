@@ -52,7 +52,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       email: email,
       newPassword: passwordController.text.trim(),
     );
-
     await _viwe_model.doAction(ResetPasswordAction(request));
   }
 
@@ -61,7 +60,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     return BlocConsumer<Viwe_Model, Viwe_State>(
       bloc: _viwe_model,
       listener: (context, state) {
-        if (state.sucsses == "Password reset") {
+        if (state.sucsses == "success") {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("Password reset successfully!")),
           );
