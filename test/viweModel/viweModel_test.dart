@@ -8,7 +8,6 @@ import 'package:project_one_c3_team/api/auth/request/SignUpRequest.dart';
 import 'package:project_one_c3_team/api/auth/request/Verify_Reset_password.dart';
 import 'package:project_one_c3_team/api/auth/request/sign_in_request.dart';
 import 'package:project_one_c3_team/api/auth/response/sign_in_response.dart';
-import 'package:project_one_c3_team/api/home/response/Get_qustion_by_Exam.dart';
 import 'package:project_one_c3_team/core/errors/result/results.dart';
 import 'package:project_one_c3_team/domin/auth/use_case/ForgotPasswordUseCase.dart';
 import 'package:project_one_c3_team/domin/auth/use_case/ResetPasswordUseCase.dart';
@@ -30,7 +29,6 @@ import 'viweModel_test.mocks.dart';
   ResetPasswordUseCase,
   GetUserInfoUseCase
 ])
-
 void main() {
  group("test viwe_model", () {
    var SignUp_UsaCase  = MockSignUp_UsaCase();
@@ -68,7 +66,7 @@ void main() {
      },
      expect: () => [
        Viwe_State.initial().copyWith(isLoading: true),
-       Viwe_State.initial().copyWith(isLoading: false, sucsses: "SignUp success"),
+       Viwe_State.initial().copyWith(isLoading: false, sucsses: "success"),
      ],
      verify: (bloc) {
        verify(SignUp_UsaCase.signUp(any)).called(1);
@@ -143,11 +141,7 @@ void main() {
    blocTest<Viwe_Model, Viwe_State>(
      "ForgotPasswordUseCase",
          build: () {
-           provideDummy<Result<Sign_in_response>>(
-             Success<Sign_in_response>(
-               Sign_in_response(/* قيمك هنا */),
-             ),
-           );
+           provideDummy<Result<void>>(Success<void>(null));
            when(ForgotPasswordUseCase.forgotPasswordSendCode(any)).thenAnswer((_) async => Success<void>(null));
            return Viwe_Model(
              SignUp_UsaCase,
@@ -166,7 +160,7 @@ void main() {
    },
      expect: () => [
        Viwe_State.initial().copyWith(isLoading: true),
-       Viwe_State.initial().copyWith(isLoading: false, sucsses: "ForgotPassword success"),
+       Viwe_State.initial().copyWith(isLoading: false, sucsses: "success"),
      ],
      verify: (bloc) {
        verify(ForgotPasswordUseCase.forgotPasswordSendCode(any)).called(1);
@@ -175,6 +169,7 @@ void main() {
    blocTest<Viwe_Model, Viwe_State>(
      "VerifyResetCodeUseCase",
      build: () {
+       provideDummy<Result<void>>(Success<void>(null));
        when(VerifyResetCodeUseCase.verifyResetCode(any))
            .thenAnswer((_) async => Success<void>(null));
        return Viwe_Model(
@@ -193,7 +188,7 @@ void main() {
      },
      expect: () => [
        Viwe_State.initial().copyWith(isLoading: true),
-       Viwe_State.initial().copyWith(isLoading: false, sucsses: "verify success"),
+       Viwe_State.initial().copyWith(isLoading: false, sucsses: "success"),
    ],
      verify: (bloc) {
        verify(VerifyResetCodeUseCase.verifyResetCode(any)).called(1);
@@ -202,6 +197,7 @@ void main() {
    blocTest<Viwe_Model, Viwe_State>(
      "ResetPasswordUseCase",
      build: () {
+       provideDummy<Result<void>>(Success<void>(null));
        when(ResetPasswordUseCase.resetPassword(any))
            .thenAnswer((_) async => Success<void>(null));
        return Viwe_Model(
@@ -222,7 +218,7 @@ void main() {
      },
      expect: () => [
        Viwe_State.initial().copyWith(isLoading: true),
-       Viwe_State.initial().copyWith(isLoading: false, sucsses: "Password reset")
+       Viwe_State.initial().copyWith(isLoading: false, sucsses: "success")
      ],
      verify: (bloc) {
        verify(ResetPasswordUseCase.resetPassword(any)).called(1);
