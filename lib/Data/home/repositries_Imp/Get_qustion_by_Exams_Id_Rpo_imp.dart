@@ -6,7 +6,7 @@ import '../../../domin/home/repositries/Get_qustion_by_Exams_Id_Rpo.dart';
 import '../Data_Source/Get_qustion_by_Exams_Data_source.dart';
 @Injectable(as: Get_qustion_by_Exams_Id_Rpo)
 class Get_qustion_by_Exams_Id_Rpo_imp implements Get_qustion_by_Exams_Id_Rpo{
-  Get_qustion_by_Exams_Data_source _source;
+  final Get_qustion_by_Exams_Data_source _source;
   Get_qustion_by_Exams_Id_Rpo_imp(this._source);
   @override
   Future<Result<List<Get_qustion_by_Exam_Id_model>>> Get_qustion(String token, String exam) {

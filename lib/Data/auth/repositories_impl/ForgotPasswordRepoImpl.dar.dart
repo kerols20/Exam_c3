@@ -8,7 +8,7 @@ import '../../../domin/auth/repositories/forgot_password_reposetories.dart';
 @Injectable(as: ForgotPasswordReposetories)
 class ForgotPasswordRepoImpl  implements ForgotPasswordReposetories{
 
-  ForgotPasswordRemoteDataSource _forgotPasswordRemoteDataSource;
+  final ForgotPasswordRemoteDataSource _forgotPasswordRemoteDataSource;
   ForgotPasswordRepoImpl(this._forgotPasswordRemoteDataSource);
 
   @override

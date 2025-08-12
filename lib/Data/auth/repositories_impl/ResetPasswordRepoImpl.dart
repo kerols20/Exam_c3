@@ -7,7 +7,7 @@ import '../data_source/ResetPasswordRemoteDataSource.dart';
 @Injectable(as: ResetPasswordReposetories)
 class ResetPasswordRepoImp  implements ResetPasswordReposetories{
 
-  ResetPasswordRemoteDataSource _resetPasswordRemoteDataSource;
+  final ResetPasswordRemoteDataSource _resetPasswordRemoteDataSource;
   ResetPasswordRepoImp(this._resetPasswordRemoteDataSource);
 
   @override

@@ -5,7 +5,7 @@ import 'package:project_one_c3_team/api/api_clint/Api_Clint.dart';
 import 'package:project_one_c3_team/api/home/Data_Source_Imp/change_password_data_source_impl.dart';
 import 'package:project_one_c3_team/api/home/request/change_password_request.dart';
 import 'package:project_one_c3_team/api/home/response/change_profile_password_response.dart';
-import 'package:project_one_c3_team/core/errors/handlers/auth_error_handler.dart';
+import 'package:project_one_c3_team/core/errors/handlers/home_error_handler.dart';
 import '../../auth/data_source_impl/SignUp_Data_Source_Imp_test.mocks.dart';
 @GenerateMocks([
   ApiClient
@@ -13,7 +13,7 @@ import '../../auth/data_source_impl/SignUp_Data_Source_Imp_test.mocks.dart';
 void main() {
   test('when  call Change_password method then return success', ()async {
     MockApiClient mockApiClient = MockApiClient();
-    AuthErrorHandler errorHandler = AuthErrorHandler();
+    HomeErrorHandler errorHandler = HomeErrorHandler();
     ChangePasswordDataSourceImpl changePasswordDataSourceImpl = ChangePasswordDataSourceImpl(mockApiClient, errorHandler);
     ChangePasswordRequest changePasswordRequest = ChangePasswordRequest(
       rePassword: "test",

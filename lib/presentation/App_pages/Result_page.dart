@@ -69,11 +69,11 @@ class ResultCard extends StatelessWidget {
   final int time;
 
   const ResultCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.questions,
     required this.time,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

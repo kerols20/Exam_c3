@@ -26,6 +26,7 @@ class _Home_PageState extends State<Home_Page> {
       await _home_viwe_model.doAction(action);
     }
   }
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<Home_viwe_model, Home_viwe_model_status>(
       bloc: _home_viwe_model,
@@ -45,7 +46,7 @@ class _Home_PageState extends State<Home_Page> {
           }
         },
       builder: ( context, state) {
-        if(state.subjects != null && state.subjects.isNotEmpty){
+        if(state.subjects.isNotEmpty){
           return Scaffold(
               appBar: AppBar(
                 title: Text("servy"),

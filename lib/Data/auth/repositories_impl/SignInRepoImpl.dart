@@ -8,7 +8,7 @@ import '../../../api/auth/response/sign_in_response.dart';
 @Injectable(as: SignInRepositories)
 class SignInRepoImpl  implements SignInRepositories{
 
-  SignInRemoteDataSource _signInRemoteDataSource;
+  final SignInRemoteDataSource _signInRemoteDataSource;
   SignInRepoImpl(this._signInRemoteDataSource);
   @override
   Future<Result<Sign_in_response>> signIn(SignInRequest request) async {

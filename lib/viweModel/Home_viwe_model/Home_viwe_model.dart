@@ -17,12 +17,12 @@ import '../../domin/home/model/Get_subjects_model.dart';
 
 @injectable
 class Home_viwe_model extends Cubit<Home_viwe_model_status> {
-  Get_subject_Use_Case _get_subject_use_case;
-  Get_Exams_by_Id_subject_UseCse _cse;
-  Get_Exams_by_Id_Usecase _usecase;
-  GetUserInfoUseCase _getUserInfoUseCase;
-  EditProfileUseCase _editProfileUseCase;
-  ChangePasswordUseCase _changePasswordUseCase;
+  final Get_subject_Use_Case _get_subject_use_case;
+  final Get_Exams_by_Id_subject_UseCse _cse;
+  final Get_Exams_by_Id_Usecase _usecase;
+  final GetUserInfoUseCase _getUserInfoUseCase;
+  final EditProfileUseCase _editProfileUseCase;
+  final ChangePasswordUseCase _changePasswordUseCase;
 
   Home_viwe_model(
     this._get_subject_use_case,
@@ -83,8 +83,8 @@ class Home_viwe_model extends Cubit<Home_viwe_model_status> {
   Future<void> _Get_Exams_by_Id_subject(String subject, String token) async {
     emit(state.copyWith(isLoading: true, sucsses: null, errormasssege: null));
     final response = await _cse.getExams(subject, token);
-    return response.fold(onSuccess: (Get_Exams_by_Id_subject) {
-      emit(state.copyWith(isLoading: false, sucsses: "sucsses", exams: Get_Exams_by_Id_subject));
+    return response.fold(onSuccess: (getExamsByIdSubject) {
+      emit(state.copyWith(isLoading: false, sucsses: "sucsses", exams: getExamsByIdSubject));
     }, onFailure: (failure) {
       emit(state.copyWith(isLoading: false, errormasssege: failure.userFriendlyMessage));
     },);
@@ -113,7 +113,7 @@ class Home_viwe_model extends Cubit<Home_viwe_model_status> {
       ) async {
     emit(state.copyWith(isLoading: true, sucsses: null, errormasssege: null));
 
-    try {
+    
       final request = EditProfileRequest(
         username: username,
         firstName: firstName,
@@ -134,10 +134,6 @@ class Home_viwe_model extends Cubit<Home_viwe_model_status> {
       );
 
       return result;
-    } catch (error) {
-      emit(state.copyWith(isLoading: false, errormasssege: error.toString()));
-      rethrow;
-    }
   }
 
 
@@ -150,7 +146,7 @@ class Home_viwe_model extends Cubit<Home_viwe_model_status> {
     }, onFailure: (failure) {
       emit(state.copyWith(isLoading: false, errormasssege: failure.userFriendlyMessage));
       throw Exception(failure.userFriendlyMessage);
-    },);
+    });
   }
 }
 

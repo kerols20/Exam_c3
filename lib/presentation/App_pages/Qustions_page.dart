@@ -55,11 +55,11 @@ class _StyledQuestionsPageState extends State<StyledQuestionsPage> {
           }
         },
           builder: (context, state) {
-            if (state.qustion != null && state.qustion!.isNotEmpty) {
+            if (state.qustion.isNotEmpty) {
               return ListView.builder(
-                itemCount: state.qustion!.length,
+                itemCount: state.qustion.length,
                 itemBuilder: (context, index) {
-                  final q = state.qustion![index];
+                  final q = state.qustion[index];
                   return Container(
                     margin: EdgeInsets.all(10),
                     padding: EdgeInsets.all(12),
@@ -76,7 +76,7 @@ class _StyledQuestionsPageState extends State<StyledQuestionsPage> {
                           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: 12),
-                        ...q.Answer.map((answer) => _buildAnswerOption(answer)).toList(),
+                        ...q.Answer.map((answer) => _buildAnswerOption(answer)),
                       ],
                     ),
                   );

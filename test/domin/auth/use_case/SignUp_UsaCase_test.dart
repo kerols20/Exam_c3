@@ -13,8 +13,8 @@ import 'SignUp_UsaCase_test.mocks.dart';
 void main() {
     provideDummy<Result<void>>(Success<void>(null));
   test('when call signUp_Usecase method then return success', () async {
-    final mockSignUp_Rpo = MockSignUp_Rpo();
-    final signUpUsaCase = SignUp_UsaCase(mockSignUp_Rpo);
+    final mocksignupRpo = MockSignUp_Rpo();
+    final signUpUsaCase = SignUp_UsaCase(mocksignupRpo);
 
     final request = SignUpRequest(
       username: 'testuser',
@@ -22,11 +22,11 @@ void main() {
       lastName: 'User',
     );
 
-    when(mockSignUp_Rpo.signUp(request))
+    when(mocksignupRpo.signUp(request))
         .thenAnswer((_) async => const Success<void>(null));
 
     await signUpUsaCase.signUp(request);
 
-    verify(mockSignUp_Rpo.signUp(request)).called(1);
+    verify(mocksignupRpo.signUp(request)).called(1);
   });
 }

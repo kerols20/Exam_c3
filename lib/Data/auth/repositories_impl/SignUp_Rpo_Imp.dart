@@ -6,7 +6,7 @@ import '../data_source/SignUp_Data_Source.dart';
 /// unit testing
 @Injectable(as:SignUp_Rpo)
 class SignUp_Rpo_Imp implements SignUp_Rpo{
-  SignUpDataSource _signUpDataSource;
+  final SignUpDataSource _signUpDataSource;
   SignUp_Rpo_Imp(this._signUpDataSource);
   @override
   Future<Result<void>> signUp(SignUpRequest request) {

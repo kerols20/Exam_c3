@@ -1,9 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:project_one_c3_team/api/home/response/user_info_response.dart';
 import 'package:project_one_c3_team/core/errors/result/results.dart';
-import 'package:project_one_c3_team/domin/home/UsaCase/get_user_info_use_case.dart';
 import '../api/auth/request/Forgot_Password_Request.dart';
 import '../api/auth/request/Reset Password.dart';
 import '../api/auth/request/SignUpRequest.dart';
@@ -166,7 +164,7 @@ class Viwe_State extends Equatable {
   final String? errormasssege;
   final List<subject> subjects;
 
-  Viwe_State({
+  const Viwe_State({
     this.sucsses,
     this.errormasssege,
     required this.subjects,

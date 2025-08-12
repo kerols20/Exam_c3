@@ -267,22 +267,20 @@ class _Profile_pageState extends State<Profile_page> {
     final result =
         await _viewModel.doAction(GetUserInfoAction(token)) as UserInfoResponse;
     print('Read from storage: $result');
-    if (result != null) {
-      setState(() {
-        usernameController.text = result.user.username ?? '';
-        firstNameController.text = result.user.firstName.split(' ').first ?? '';
-        lastNameController.text = result.user.lastName ?? '';
-        emailController.text = result.user.email ?? '';
-        phoneController.text = result.user.phone ?? '';
+    setState(() {
+      usernameController.text = result.user.username ?? '';
+      firstNameController.text = result.user.firstName.split(' ').first ?? '';
+      lastNameController.text = result.user.lastName ?? '';
+      emailController.text = result.user.email ?? '';
+      phoneController.text = result.user.phone ?? '';
 
-        originalUsername = usernameController.text;
-        originalFirstName = firstNameController.text;
-        originalLastName = lastNameController.text;
-        originalEmail = emailController.text;
-        originalPhone = phoneController.text;
-      });
+      originalUsername = usernameController.text;
+      originalFirstName = firstNameController.text;
+      originalLastName = lastNameController.text;
+      originalEmail = emailController.text;
+      originalPhone = phoneController.text;
+    });
     }
-  }
 
   void _addFocusListeners() {
     for (var node in [
@@ -362,38 +360,29 @@ class _Profile_pageState extends State<Profile_page> {
         editProfileRequest: request,
       )) as UserInfoResponse;
 
-      if (response != null && response.user != null) {
-        setState(() {
-          usernameController.text = response.user.username;
-          firstNameController.text = response.user.firstName;
-          lastNameController.text = response.user.lastName;
-          emailController.text = response.user.email;
-          phoneController.text = response.user.phone;
-          originalUsername = response.user.username;
-          originalFirstName = response.user.firstName;
-          originalLastName = response.user.lastName;
-          originalEmail = response.user.email;
-          originalPhone = response.user.phone;
-          isEditing = false;
-          isDataChanged = false;
-          // unfocus all text fields
-          FocusScope.of(context).unfocus();
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(response.message),
-            backgroundColor: Colors.green,
-          ),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Failed to update profile"),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
-    } catch (e) {
+      setState(() {
+        usernameController.text = response.user.username;
+        firstNameController.text = response.user.firstName;
+        lastNameController.text = response.user.lastName;
+        emailController.text = response.user.email;
+        phoneController.text = response.user.phone;
+        originalUsername = response.user.username;
+        originalFirstName = response.user.firstName;
+        originalLastName = response.user.lastName;
+        originalEmail = response.user.email;
+        originalPhone = response.user.phone;
+        isEditing = false;
+        isDataChanged = false;
+        // unfocus all text fields
+        FocusScope.of(context).unfocus();
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(response.message),
+          backgroundColor: Colors.green,
+        ),
+      );
+        } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Error: ${e.toString()}"),

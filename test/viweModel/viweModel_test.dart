@@ -31,9 +31,9 @@ import 'viweModel_test.mocks.dart';
 ])
 void main() {
  group("test viwe_model", () {
-   var SignUp_UsaCase  = MockSignUp_UsaCase();
+   var signupUsacase  = MockSignUp_UsaCase();
    var SignInUseCase = MockSignInUseCase();
-   var Get_subject_Use_Case = MockGet_subject_Use_Case();
+   var getSubjectUseCase = MockGet_subject_Use_Case();
    var ForgotPasswordUseCase = MockForgotPasswordUseCase();
    var VerifyResetCodeUseCase = MockVerifyResetCodeUseCase();
    var ResetPasswordUseCase = MockResetPasswordUseCase();
@@ -41,12 +41,12 @@ void main() {
      'test sign up',
      build: () {
        provideDummy<Result<void>>(Success<void>(null));
-       when(SignUp_UsaCase.signUp(any)).thenAnswer((_) async => Success<void>(null),
+       when(signupUsacase.signUp(any)).thenAnswer((_) async => Success<void>(null),
        );
        return Viwe_Model(
-         SignUp_UsaCase,
+         signupUsacase,
          SignInUseCase,
-         Get_subject_Use_Case,
+         getSubjectUseCase,
          ForgotPasswordUseCase,
          VerifyResetCodeUseCase,
          ResetPasswordUseCase,
@@ -69,7 +69,7 @@ void main() {
        Viwe_State.initial().copyWith(isLoading: false, sucsses: "success"),
      ],
      verify: (bloc) {
-       verify(SignUp_UsaCase.signUp(any)).called(1);
+       verify(signupUsacase.signUp(any)).called(1);
      },
    );
 
@@ -87,9 +87,9 @@ void main() {
          ),
        );
        return Viwe_Model(
-         SignUp_UsaCase,
+         signupUsacase,
          SignInUseCase,
-         Get_subject_Use_Case,
+         getSubjectUseCase,
          ForgotPasswordUseCase,
          VerifyResetCodeUseCase,
          ResetPasswordUseCase,
@@ -115,12 +115,12 @@ void main() {
      "Get_subject_Use_Case",
      build: () {
        provideDummy<Result<List<subject>>>(Success<List<subject>>([]));
-       when(Get_subject_Use_Case.Get_subjects_Data(any))
+       when(getSubjectUseCase.Get_subjects_Data(any))
            .thenAnswer((_) async => Success<List<subject>>([]));
        return Viwe_Model(
-         SignUp_UsaCase,
+         signupUsacase,
          SignInUseCase,
-         Get_subject_Use_Case,
+         getSubjectUseCase,
          ForgotPasswordUseCase,
          VerifyResetCodeUseCase,
          ResetPasswordUseCase,
@@ -134,7 +134,7 @@ void main() {
        Viwe_State.initial().copyWith(isLoading: false, sucsses: "success"),
      ],
      verify: (bloc) {
-       verify(Get_subject_Use_Case.Get_subjects_Data(any)).called(1);
+       verify(getSubjectUseCase.Get_subjects_Data(any)).called(1);
      },
    );
 
@@ -144,9 +144,9 @@ void main() {
            provideDummy<Result<void>>(Success<void>(null));
            when(ForgotPasswordUseCase.forgotPasswordSendCode(any)).thenAnswer((_) async => Success<void>(null));
            return Viwe_Model(
-             SignUp_UsaCase,
+             signupUsacase,
              SignInUseCase,
-             Get_subject_Use_Case,
+             getSubjectUseCase,
              ForgotPasswordUseCase,
              VerifyResetCodeUseCase,
              ResetPasswordUseCase,
@@ -173,9 +173,9 @@ void main() {
        when(VerifyResetCodeUseCase.verifyResetCode(any))
            .thenAnswer((_) async => Success<void>(null));
        return Viwe_Model(
-         SignUp_UsaCase,
+         signupUsacase,
          SignInUseCase,
-         Get_subject_Use_Case,
+         getSubjectUseCase,
          ForgotPasswordUseCase,
          VerifyResetCodeUseCase,
          ResetPasswordUseCase,
@@ -201,9 +201,9 @@ void main() {
        when(ResetPasswordUseCase.resetPassword(any))
            .thenAnswer((_) async => Success<void>(null));
        return Viwe_Model(
-         SignUp_UsaCase,
+         signupUsacase,
          SignInUseCase,
-         Get_subject_Use_Case,
+         getSubjectUseCase,
          ForgotPasswordUseCase,
          VerifyResetCodeUseCase,
          ResetPasswordUseCase,

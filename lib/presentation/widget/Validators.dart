@@ -11,6 +11,7 @@ class Validators {
 
   static String? passwordMatch(String? value,) {
     if (value == null || value.isEmpty) return 'Required';
+    return null;
   }
   static String? name(String? value) {
     if (value == null || value.isEmpty) return 'Required';
@@ -18,9 +19,9 @@ class Validators {
     return nameRegex.hasMatch(value) ? null : 'Invalid name';
   }
   static String? phone(String? value) {
-    if (value == null || value.isEmpty)
+    if (value == null || value.isEmpty) {
       return 'Required';
-    else if (value.length != 11)
+    } else if (value.length != 11)
       return 'Invalid phone number';
     else
       return null;

@@ -3,6 +3,8 @@ import 'Home_Page.dart';
 import 'Profile.dart';
 import 'Result_page.dart';
 class onBoardingScreen extends StatefulWidget {
+  const onBoardingScreen({super.key});
+
   @override
   State<onBoardingScreen> createState() => _Home_ScreenState();
 }
@@ -44,7 +46,7 @@ class _Home_ScreenState extends State<onBoardingScreen> {
       ),
     );
   }
-  List<Widget> _pages = [
+  final List<Widget> _pages = [
     Home_Page(),
     ResultPage(),
     Profile_page(),

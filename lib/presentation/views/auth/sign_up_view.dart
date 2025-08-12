@@ -141,8 +141,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             isPassword: true,
                             validator: (val) {
                               if (val == null || val.isEmpty) return 'Required';
-                              if (val != passwordController.text)
+                              if (val != passwordController.text) {
                                 return 'Passwords do not match';
+                              }
                               return null;
                             },
                             onChanged: (_) => _updateFormValidity(),
